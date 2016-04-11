@@ -1,28 +1,43 @@
-//
-//  GameScene.swift
-//  Scrap Yard
-//
-//  Created by igmstudent on 4/11/16.
-//  Copyright (c) 2016 igmstudent. All rights reserved.
-//
-
 import SpriteKit
 
-class GameScene: SKScene {
-    override func didMoveToView(view: SKView) {
-        /* Setup your scene here */
-        let myLabel = SKLabelNode(fontNamed:"Chalkduster")
-        myLabel.text = "Hello, World!"
-        myLabel.fontSize = 45
-        myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
-        
-        self.addChild(myLabel)
+struct PhysicsCategory
+{
+    static let None: UInt32 = 0
+    static let Edge: UInt32 = 0b1
+    static let Junk: UInt32 = 0b10
+}
+
+
+protocol CustomNodeEvents
+{
+    func didMoveToScene()
+}
+
+class GameScene: SKScene, SKPhysicsContactDelegate
+{
+    var currentLevel: Int = 0
+    
+    override func didMoveToView(view: SKView)
+    {
+        let maxAspectRatio: CGFloat = 16.0/9.0 // iPhone 5
+        let maxAspectRatioHeight = size.width / maxAspectRatio
+        let playableMargin: CGFloat = (size.height - maxAspectRatioHeight) / 2
+        let playableRect = CGRect(
+            x: 0,
+            y: playableMargin,
+            width: size.width,
+            height: size.height-playableMargin *  2)
+        physicsBody = SKPhysicsBody(edgeLoopFromRect: playableRect)
+        physicsWorld.contactDelegate = self
+        physicsBody!.categoryBitMask = PhysicsCategory.Edge
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?)
+    {
        /* Called when a touch begins */
         
-        for touch in touches {
+        for touch in touches
+        {
             let location = touch.locationInNode(self)
             
             let sprite = SKSpriteNode(imageNamed:"Spaceship")
@@ -39,7 +54,17 @@ class GameScene: SKScene {
         }
     }
    
-    override func update(currentTime: CFTimeInterval) {
+    override func update(currentTime: CFTimeInterval)
+    {
         /* Called before each frame is rendered */
+    }
+    
+    //Static function that instantiates a scene of a given level number.
+    class func getLevel(levelNum: Int) -> GameScene?
+    {
+        let scene = GameScene(fileNamed: "Level_\(levelNum)")!
+        scene.currentLevel = levelNum
+        scene.scaleMode = .AspectFill
+        return scene
     }
 }
