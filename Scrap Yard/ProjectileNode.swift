@@ -2,6 +2,8 @@ import SpriteKit
 
 class ProjectileNode: SKSpriteNode, CustomNodeEvents
 {
+    var disabled = false;
+    
     init(position: CGPoint)
     {
         super.init(
@@ -37,5 +39,10 @@ class ProjectileNode: SKSpriteNode, CustomNodeEvents
     func update(dt: CGFloat)
     {
 
+    }
+    
+    func isDisabled() -> Bool
+    {
+        return disabled
     }
 }

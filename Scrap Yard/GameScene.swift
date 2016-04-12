@@ -96,6 +96,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 }
             }
         })
+        
+        //Check Positions of escapers
+        enumerateChildNodesWithName( "//*", usingBlock:
+            { node, _ in
+                if let customNode = node as? ProjectileNode
+                {
+                    if(customNode.isDisabled())
+                    {
+                        customNode.removeFromParent()
+                    }
+                }
+        })
     }
     
     //Triggers when a collision occurs
@@ -108,11 +120,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         {
             if(contact.bodyA.categoryBitMask == PhysicsCategory.Proj)
             {
-                (contact.bodyA.node as! SKSpriteNode).removeFromParent()
+                (contact.bodyA.node as! ProjectileNode).disabled = true;
             }
             else
             {
-                (contact.bodyB.node as! SKSpriteNode).removeFromParent()
+                (contact.bodyB.node as! ProjectileNode).disabled = true;
             }
         }
     }
