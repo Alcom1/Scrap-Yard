@@ -5,6 +5,7 @@ struct PhysicsCategory
     static let None: UInt32 = 0
     static let Edge: UInt32 = 0b1
     static let Junk: UInt32 = 0b10
+    static let Proj: UInt32 = 0b100
 }
 
 
@@ -76,6 +77,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 customNode.update(self.dt)
             }
         })
+    }
+    
+    //Triggers when a collision occurs
+    func didBeginContact(contact: SKPhysicsContact)
+    {
+        let collision = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
+        
+        if collision == PhysicsCategory.Proj | PhysicsCategory.Junk
+        {
+
+        }
     }
     
     func addProjectile(position: CGPoint)

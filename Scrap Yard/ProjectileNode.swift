@@ -15,6 +15,8 @@ class ProjectileNode: SKSpriteNode, CustomNodeEvents
         physicsBody = SKPhysicsBody(circleOfRadius: 17)
         physicsBody!.affectedByGravity = false;
         physicsBody!.mass = 0.2
+        
+        physicsBody!.contactTestBitMask = PhysicsCategory.Edge | PhysicsCategory.Junk
     }
 
     required init?(coder aDecoder: NSCoder)
