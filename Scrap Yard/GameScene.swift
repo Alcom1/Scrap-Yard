@@ -51,7 +51,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         for touch in touches
         {
             let location = touch.locationInNode(self)
-            print(location)
+            addProjectile(location)
         }
     }
    
@@ -76,6 +76,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 customNode.update(self.dt)
             }
         })
+    }
+    
+    func addProjectile(position: CGPoint)
+    {
+        let projectile = ProjectileNode(position: position)
+        self.addChild(projectile)
     }
     
     //Static function that instantiates a scene of a given level number.
