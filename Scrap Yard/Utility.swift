@@ -119,6 +119,12 @@ func /= (inout point: CGPoint, scalar: CGFloat)
 
 extension CGPoint
 {
+    init(angle: CGFloat, mag: CGFloat)
+    {
+        x = mag * cos(angle)
+        y = mag * sin(angle)
+    }
+    
     func length() -> CGFloat
     {
         return sqrt(x*x + y*y)
@@ -141,6 +147,8 @@ extension CGPoint
 }
 
 let π = CGFloat(M_PI)
+
+let center = CGPoint(x: 512, y: 384)
 
 func shortestAngleBetween(
     angle1: CGFloat,

@@ -24,19 +24,12 @@ protocol EscapeEvents
 class GameScene: SKScene, SKPhysicsContactDelegate
 {
     var currentLevel: Int = 0
+    var player = PlayerNode()
     var lastUpdateTime: NSTimeInterval = 0
     var dt: CGFloat = 0
     
     override func didMoveToView(view: SKView)
     {
-        /*let maxAspectRatio: CGFloat = 4.0/3.0
-        let maxAspectRatioHeight = size.width / maxAspectRatio
-        let playableMargin: CGFloat = (size.height - maxAspectRatioHeight) / 2
-        let playableArea = CGRect(
-            x: 0,
-            y: playableMargin,
-            width: size.width,
-            height: size.height-playableMargin *  2)*/
         physicsBody = SKPhysicsBody(edgeLoopFromPath: polygonPath(
             512,
             y: 384,
@@ -44,6 +37,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             sides: 40))
         physicsWorld.contactDelegate = self
         physicsBody!.categoryBitMask = PhysicsCategory.Edge
+        
+        self.addChild(player)
         
         enumerateChildNodesWithName( "//*", usingBlock:
         { node, _ in
@@ -54,15 +49,33 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         })
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?)
+    //
+    override func touchesBegan          (touches: Set<UITouch>, withEvent event: UIEvent?)
     {
         for touch in touches
         {
             let location = touch.locationInNode(self)
-            addProjectile(location)
+            player.setPosAndRot(location)
         }
     }
+    
+    //
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?)
+    {
+        for touch in touches
+        {
+            let location = touch.locationInNode(self)
+            player.setPosAndRot(location)
+        }
+    }
+    
+    //
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?)
+    {
+        addProjectile(player.position)
+    }
    
+    //
     override func update(currentTime: CFTimeInterval)
     {
         //Set delta time
@@ -114,7 +127,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     func didBeginContact(contact: SKPhysicsContact)
     {
         let collision = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
-        print(collision)
         
         if collision == PhysicsCategory.Proj | PhysicsCategory.Junk
         {
