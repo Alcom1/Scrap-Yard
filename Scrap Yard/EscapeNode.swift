@@ -16,7 +16,7 @@ class EscapeNode: SKSpriteNode, CustomNodeEvents, EscapeEvents
     
     func isOut() -> Bool
     {
-        return (position - CGPoint(x: 512, y: 384)).length() > 350 - size.width
+        return (position - CGPoint(x: 512, y: 384)).length() > 350 - size.width / 2
     }
     
     func boost()

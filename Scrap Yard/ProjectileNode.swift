@@ -7,16 +7,18 @@ class ProjectileNode: SKSpriteNode, CustomNodeEvents
         super.init(
             texture: SKTexture(imageNamed: "circle"),
             color: UIColor(),
-            size: CGSize(width: 34, height: 34))
+            size: CGSize(width: 20, height: 20))
         let center = CGPoint(x: 512, y: 384)
-        self.position = (position - center).normalized() * 350 + center
+        self.position = (position - center).normalized() * 340 + center
         self.zRotation = (position - center).angle
         print(self.zRotation.toDegrees())
         physicsBody = SKPhysicsBody(circleOfRadius: 17)
         physicsBody!.affectedByGravity = false;
-        physicsBody!.mass = 0.2
+        physicsBody!.mass = 0.3
         
-        physicsBody!.contactTestBitMask = PhysicsCategory.Edge | PhysicsCategory.Junk
+        physicsBody!.categoryBitMask = PhysicsCategory.Proj
+        physicsBody!.collisionBitMask = PhysicsCategory.Junk
+        physicsBody!.contactTestBitMask = PhysicsCategory.Junk | PhysicsCategory.Edge
     }
 
     required init?(coder aDecoder: NSCoder)

@@ -92,7 +92,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             {
                 if(customNode.isOut())
                 {
-                    print("OUT");
+                    self.newGame()
                 }
             }
         })
@@ -102,11 +102,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     func didBeginContact(contact: SKPhysicsContact)
     {
         let collision = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
+        print(collision)
         
         if collision == PhysicsCategory.Proj | PhysicsCategory.Junk
         {
-            
+            if(contact.bodyA.categoryBitMask == PhysicsCategory.Proj)
+            {
+                (contact.bodyA.node as! SKSpriteNode).removeFromParent()
+            }
+            else
+            {
+                (contact.bodyB.node as! SKSpriteNode).removeFromParent()
+            }
         }
+    }
+    
+    //Start a new game.
+    func newGame()
+    {
+        view!.presentScene(GameScene.getLevel(currentLevel))
     }
     
     func addProjectile(position: CGPoint)
@@ -151,7 +165,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         let points = polygonPointArray(sides, x: x, y: y, radius: radius)
         let cpg = points[0]
         CGPathMoveToPoint(path, nil, cpg.x, cpg.y)
-        for p in points {
+        for p in points
+        {
             CGPathAddLineToPoint(path, nil, p.x, p.y)
         }
         CGPathCloseSubpath(path)
