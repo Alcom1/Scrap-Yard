@@ -15,24 +15,33 @@ protocol CustomNodeEvents
     func update(dt: CGFloat)
 }
 
+protocol EscapeEvents
+{
+    func isOut() -> Bool
+    func boost()
+}
+
 class GameScene: SKScene, SKPhysicsContactDelegate
 {
     var currentLevel: Int = 0
     var lastUpdateTime: NSTimeInterval = 0
     var dt: CGFloat = 0
-    var mainCircle: EscapeNode!
     
     override func didMoveToView(view: SKView)
     {
-        let maxAspectRatio: CGFloat = 4.0/3.0
+        /*let maxAspectRatio: CGFloat = 4.0/3.0
         let maxAspectRatioHeight = size.width / maxAspectRatio
         let playableMargin: CGFloat = (size.height - maxAspectRatioHeight) / 2
-        let playableRect = CGRect(
+        let playableArea = CGRect(
             x: 0,
             y: playableMargin,
             width: size.width,
-            height: size.height-playableMargin *  2)
-        physicsBody = SKPhysicsBody(edgeLoopFromRect: playableRect)
+            height: size.height-playableMargin *  2)*/
+        physicsBody = SKPhysicsBody(edgeLoopFromPath: polygonPath(
+            512,
+            y: 384,
+            radius: 350,
+            sides: 40))
         physicsWorld.contactDelegate = self
         physicsBody!.categoryBitMask = PhysicsCategory.Edge
         
@@ -43,8 +52,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 customNode.didMoveToScene()
             }
         })
-        
-        mainCircle = childNodeWithName("circle_m") as! EscapeNode
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?)
@@ -77,6 +84,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 customNode.update(self.dt)
             }
         })
+        
+        //Check Positions of escapers
+        enumerateChildNodesWithName( "//*", usingBlock:
+        { node, _ in
+            if let customNode = node as? EscapeEvents
+            {
+                if(customNode.isOut())
+                {
+                    print("OUT");
+                }
+            }
+        })
     }
     
     //Triggers when a collision occurs
@@ -86,7 +105,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         if collision == PhysicsCategory.Proj | PhysicsCategory.Junk
         {
-
+            
         }
     }
     
@@ -104,5 +123,38 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         scene.currentLevel = levelNum
         scene.scaleMode = .AspectFill
         return scene
+    }
+    
+    //Generate an array of points arranged in a circle
+    func polygonPointArray(
+        sides: Int,
+        x: CGFloat,
+        y: CGFloat,
+        radius: CGFloat) -> [CGPoint]
+    {
+        
+        var points = [CGPoint]()
+        for(var i = 0; i < sides; i++)
+        {
+            points.append(
+                CGPoint(
+                    x: x + radius * cos(2.0 * π * CGFloat(i) / CGFloat(sides)),
+                    y: y + radius * sin(2.0 * π * CGFloat(i) / CGFloat(sides))))
+        }
+        return points
+    }
+    
+    //Generate a path of a regular polygon
+    func polygonPath(x: CGFloat, y: CGFloat, radius: CGFloat, sides: Int) -> CGPathRef
+    {
+        let path = CGPathCreateMutable()
+        let points = polygonPointArray(sides, x: x, y: y, radius: radius)
+        let cpg = points[0]
+        CGPathMoveToPoint(path, nil, cpg.x, cpg.y)
+        for p in points {
+            CGPathAddLineToPoint(path, nil, p.x, p.y)
+        }
+        CGPathCloseSubpath(path)
+        return path
     }
 }
