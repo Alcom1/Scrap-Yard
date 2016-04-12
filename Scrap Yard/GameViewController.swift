@@ -11,7 +11,7 @@ class GameViewController: UIViewController {
         {
             // Configure the view.
             let skView = self.view as! SKView
-            skView.showsPhysics = true
+            //skView.showsPhysics = true
             skView.showsFPS = true
             skView.showsNodeCount = true
             

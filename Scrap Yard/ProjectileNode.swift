@@ -7,10 +7,14 @@ class ProjectileNode: SKSpriteNode, CustomNodeEvents
         super.init(
             texture: SKTexture(imageNamed: "circle"),
             color: UIColor(),
-            size: CGSize(width: 50, height: 50))
-        self.position = position
-        physicsBody = SKPhysicsBody(circleOfRadius: 25)
-        physicsBody!.applyImpulse(CGVector(dx: 25, dy: 0))
+            size: CGSize(width: 34, height: 34))
+        let center = CGPoint(x: 512, y: 384)
+        self.position = (position - center).normalized() * 350 + center
+        self.zRotation = (position - center).angle
+        print(self.zRotation.toDegrees())
+        physicsBody = SKPhysicsBody(circleOfRadius: 17)
+        physicsBody!.affectedByGravity = false;
+        physicsBody!.mass = 0.2
     }
 
     required init?(coder aDecoder: NSCoder)
@@ -20,7 +24,10 @@ class ProjectileNode: SKSpriteNode, CustomNodeEvents
     
     func didMoveToScene()
     {
-        
+        physicsBody!.applyImpulse(
+            CGVector(
+                dx: -50 * cos(self.zRotation),
+                dy: -50 * sin(self.zRotation)))
     }
     
     func update(dt: CGFloat)

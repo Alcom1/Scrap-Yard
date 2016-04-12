@@ -82,6 +82,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     {
         let projectile = ProjectileNode(position: position)
         self.addChild(projectile)
+        projectile.didMoveToScene()
     }
     
     //Static function that instantiates a scene of a given level number.
