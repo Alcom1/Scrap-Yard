@@ -11,15 +11,19 @@ struct PhysicsCategory
 protocol CustomNodeEvents
 {
     func didMoveToScene()
+    func update(dt: CGFloat)
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate
 {
     var currentLevel: Int = 0
+    var lastUpdateTime: NSTimeInterval = 0
+    var dt: CGFloat = 0
+    var mainCircle: EscapeNode!
     
     override func didMoveToView(view: SKView)
     {
-        let maxAspectRatio: CGFloat = 16.0/9.0 // iPhone 5
+        let maxAspectRatio: CGFloat = 4.0/3.0
         let maxAspectRatioHeight = size.width / maxAspectRatio
         let playableMargin: CGFloat = (size.height - maxAspectRatioHeight) / 2
         let playableRect = CGRect(
@@ -30,33 +34,48 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         physicsBody = SKPhysicsBody(edgeLoopFromRect: playableRect)
         physicsWorld.contactDelegate = self
         physicsBody!.categoryBitMask = PhysicsCategory.Edge
+        
+        enumerateChildNodesWithName( "//*", usingBlock:
+        { node, _ in
+            if let customNode = node as? CustomNodeEvents
+            {
+                customNode.didMoveToScene()
+            }
+        })
+        
+        mainCircle = childNodeWithName("circle_m") as! EscapeNode
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?)
     {
-       /* Called when a touch begins */
-        
         for touch in touches
         {
             let location = touch.locationInNode(self)
-            
-            let sprite = SKSpriteNode(imageNamed:"Spaceship")
-            
-            sprite.xScale = 0.5
-            sprite.yScale = 0.5
-            sprite.position = location
-            
-            let action = SKAction.rotateByAngle(CGFloat(M_PI), duration:1)
-            
-            sprite.runAction(SKAction.repeatActionForever(action))
-            
-            self.addChild(sprite)
+            print(location)
         }
     }
    
     override func update(currentTime: CFTimeInterval)
     {
-        /* Called before each frame is rendered */
+        //Set delta time
+        if(lastUpdateTime > 0)
+        {
+            dt = CGFloat(currentTime - lastUpdateTime)
+        }
+        else
+        {
+            dt = 0
+        }
+        lastUpdateTime = currentTime
+        
+        //Update all objects
+        enumerateChildNodesWithName( "//*", usingBlock:
+        { node, _ in
+            if let customNode = node as? CustomNodeEvents
+            {
+                customNode.update(self.dt)
+            }
+        })
     }
     
     //Static function that instantiates a scene of a given level number.
