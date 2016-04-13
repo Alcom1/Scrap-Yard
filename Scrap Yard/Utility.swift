@@ -148,7 +148,7 @@ extension CGPoint
 
 let π = CGFloat(M_PI)
 
-let center = CGPoint(x: 512, y: 384)
+let center = CGPoint(x: 384, y: 512)
 
 func shortestAngleBetween(
     angle1: CGFloat,

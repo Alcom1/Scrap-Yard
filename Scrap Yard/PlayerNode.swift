@@ -2,8 +2,8 @@ import SpriteKit
 
 class PlayerNode: SKSpriteNode, CustomNodeEvents
 {
-    var targetAngle = CGFloat(0.0)
-    var currentAngle = CGFloat(0.0)
+    var targetAngle = CGFloat(π / 2)
+    var currentAngle = CGFloat(π / 2)
     var rotSpeed = π / 2
     
     init()
@@ -13,7 +13,7 @@ class PlayerNode: SKSpriteNode, CustomNodeEvents
             color: UIColor(),
             size: CGSize(width: 50, height: 25))
         
-        self.position = center + CGPoint(x: 350, y: 0)
+        self.position = center + CGPoint(x: 0, y: 350)
         self.zRotation = (self.position - center).angle
     }
     

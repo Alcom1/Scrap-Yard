@@ -27,12 +27,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var player = PlayerNode()
     var lastUpdateTime: NSTimeInterval = 0
     var dt: CGFloat = 0
+    var totalTime = CGFloat(0)
     
     override func didMoveToView(view: SKView)
     {
         physicsBody = SKPhysicsBody(edgeLoopFromPath: polygonPath(
-            512,
-            y: 384,
+            384,
+            y: 512,
             radius: 350,
             sides: 40))
         physicsWorld.contactDelegate = self
@@ -89,6 +90,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             dt = 0
         }
         lastUpdateTime = currentTime
+        
+        totalTime += dt
+        
+        if(totalTime > 8.0)
+        {
+            
+        }
         
         //Update all objects
         enumerateChildNodesWithName( "//*", usingBlock:
