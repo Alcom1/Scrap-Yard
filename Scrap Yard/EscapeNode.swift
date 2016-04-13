@@ -11,7 +11,7 @@ class EscapeNode: SKSpriteNode, CustomNodeEvents, EscapeEvents
     
     func update(dt: CGFloat)
     {
-        physicsBody!.applyImpulse(CGVector(dx: -25 * dt, dy: -25 * dt))
+        physicsBody!.applyImpulse(((position - center).normalized() * 3 * dt).toCGVector())
     }
     
     func isOut() -> Bool
