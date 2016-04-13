@@ -93,9 +93,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         totalTime += dt
         
-        if(totalTime > 8.0)
+        if(totalTime > 20.0)
         {
-            
+            currentLevel++
+            if(currentLevel > levelCount)
+            {
+                currentLevel = 1
+            }
+            newGame()
         }
         
         //Update all objects
