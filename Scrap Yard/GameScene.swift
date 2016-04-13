@@ -159,7 +159,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     //Start a new game.
     func newGame()
     {
-        view!.presentScene(GameScene.getLevel(currentLevel))
+        let reveal = SKTransition.crossFadeWithDuration(1.5)
+        view!.presentScene(GameScene.getLevel(currentLevel)!, transition: reveal)
     }
     
     func addProjectile(position: CGPoint)

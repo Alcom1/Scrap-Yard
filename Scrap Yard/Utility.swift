@@ -150,7 +150,7 @@ let π = CGFloat(M_PI)
 
 let center = CGPoint(x: 384, y: 512)
 
-let levelCount = 2
+let levelCount = 3
 
 func shortestAngleBetween(
     angle1: CGFloat,
