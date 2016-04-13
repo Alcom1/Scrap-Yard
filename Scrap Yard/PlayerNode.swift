@@ -51,7 +51,6 @@ class PlayerNode: SKSpriteNode, CustomNodeEvents
     
     func setPosAndRot(position: CGPoint)
     {
-        print((position - center).angle)
         targetAngle = (position - center).angle
     }
 }

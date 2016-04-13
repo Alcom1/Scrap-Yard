@@ -73,6 +73,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?)
     {
         addProjectile(player.position)
+        player.targetAngle = player.currentAngle
     }
    
     //
@@ -110,7 +111,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             }
         })
         
-        //Check Positions of escapers
+        //Kill projectiles
         enumerateChildNodesWithName( "//*", usingBlock:
             { node, _ in
                 if let customNode = node as? ProjectileNode
@@ -126,18 +127,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     //Triggers when a collision occurs
     func didBeginContact(contact: SKPhysicsContact)
     {
-        let collision = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
+        let bodyA = contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask ? contact.bodyA : contact.bodyB
+        let bodyB = contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask ? contact.bodyB : contact.bodyA
+        
+        let collision = bodyA.categoryBitMask | bodyB.categoryBitMask
         
         if collision == PhysicsCategory.Proj | PhysicsCategory.Junk
         {
-            if(contact.bodyA.categoryBitMask == PhysicsCategory.Proj)
-            {
-                (contact.bodyA.node as! ProjectileNode).disabled = true;
-            }
-            else
-            {
-                (contact.bodyB.node as! ProjectileNode).disabled = true;
-            }
+            (bodyB.node as! ProjectileNode).disabled = true;
         }
     }
     
