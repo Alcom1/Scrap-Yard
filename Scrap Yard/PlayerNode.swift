@@ -11,7 +11,7 @@ class PlayerNode: SKSpriteNode, CustomNodeEvents
         super.init(
             texture: SKTexture(imageNamed: "square"),
             color: UIColor(),
-            size: CGSize(width: 40, height: 20))
+            size: CGSize(width: 50, height: 25))
         
         self.position = center + CGPoint(x: 350, y: 0)
         self.zRotation = (self.position - center).angle

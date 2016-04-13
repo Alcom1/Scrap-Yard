@@ -136,6 +136,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         {
             (bodyB.node as! ProjectileNode).disabled = true;
         }
+        
+        if collision == PhysicsCategory.Proj | PhysicsCategory.Edge
+        {
+            (bodyB.node as! ProjectileNode).disabled = true;
+        }
     }
     
     //Start a new game.

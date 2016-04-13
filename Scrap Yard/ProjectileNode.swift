@@ -10,7 +10,7 @@ class ProjectileNode: SKSpriteNode, CustomNodeEvents
             texture: SKTexture(imageNamed: "circle"),
             color: UIColor(),
             size: CGSize(width: 20, height: 20))
-        self.position = (position - center).normalized() * 340 + center
+        self.position = (position - center).normalized() * 330 + center
         self.zRotation = (position - center).angle
         physicsBody = SKPhysicsBody(circleOfRadius: 17)
         physicsBody!.affectedByGravity = false;
