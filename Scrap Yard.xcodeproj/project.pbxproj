@@ -21,6 +21,7 @@
 		6712F86D1CBC86A800A1158F /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6712F86C1CBC86A800A1158F /* Utility.swift */; };
 		6737CC681CBEFBC400E192CC /* Level_2.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6737CC671CBEFBC400E192CC /* Level_2.sks */; };
 		6737CC6A1CBF0A5600E192CC /* Level_3.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6737CC691CBF0A5600E192CC /* Level_3.sks */; };
+		6737CC6C1CBF1C8A00E192CC /* Level_4.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6737CC6B1CBF1C8A00E192CC /* Level_4.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		6712F86C1CBC86A800A1158F /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		6737CC671CBEFBC400E192CC /* Level_2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level_2.sks; sourceTree = "<group>"; };
 		6737CC691CBF0A5600E192CC /* Level_3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level_3.sks; sourceTree = "<group>"; };
+		6737CC6B1CBF1C8A00E192CC /* Level_4.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level_4.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				6712F8501CBC5A0200A1158F /* Level_1.sks */,
 				6737CC671CBEFBC400E192CC /* Level_2.sks */,
 				6737CC691CBF0A5600E192CC /* Level_3.sks */,
+				6737CC6B1CBF1C8A00E192CC /* Level_4.sks */,
 			);
 			name = Levels;
 			sourceTree = "<group>";
@@ -165,6 +168,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6737CC6C1CBF1C8A00E192CC /* Level_4.sks in Resources */,
 				6737CC6A1CBF0A5600E192CC /* Level_3.sks in Resources */,
 				6737CC681CBEFBC400E192CC /* Level_2.sks in Resources */,
 				6712F8511CBC5A0200A1158F /* Level_1.sks in Resources */,

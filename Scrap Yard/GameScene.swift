@@ -56,6 +56,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         rectTime.strokeColor = SKColor.clearColor()
         addChild(rectTime)
         
+        circleIndic = SKShapeNode(circleOfRadius: 25.0)
+        circleIndic.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame) - 500)
+        circleIndic.fillColor = SKColor.init(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
+        circleIndic.strokeColor = SKColor.clearColor()
+        circleIndic.hidden = true
+        addChild(circleIndic)
+        
         enumerateChildNodesWithName( "//*", usingBlock:
         { node, _ in
             if let customNode = node as? CustomNodeEvents
@@ -71,6 +78,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         for touch in touches
         {
             let location = touch.locationInNode(self)
+            circleIndic.position = location
+            circleIndic.hidden = false
             player.setPosAndRot(location)
         }
     }
@@ -81,6 +90,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         for touch in touches
         {
             let location = touch.locationInNode(self)
+            circleIndic.position = location
             player.setPosAndRot(location)
         }
     }
@@ -89,6 +99,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?)
     {
         addProjectile(player.position)
+        circleIndic.hidden = true
         player.targetAngle = player.currentAngle
     }
    
@@ -177,7 +188,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     //Start a new game.
     func newGame()
     {
-        let reveal = SKTransition.crossFadeWithDuration(1.5)
+        let reveal = SKTransition.crossFadeWithDuration(1.0)
         view!.presentScene(GameScene.getLevel(currentLevel)!, transition: reveal)
     }
     

@@ -7,7 +7,7 @@ class GameViewController: UIViewController {
     {
         super.viewDidLoad()
         
-        if let scene = GameScene.getLevel(3)
+        if let scene = GameScene.getLevel(4)
         {
             // Configure the view.
             let skView = self.view as! SKView
