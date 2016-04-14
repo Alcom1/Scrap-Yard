@@ -32,6 +32,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var rectTime = SKShapeNode()
     var circleIndic = SKShapeNode()
     
+    var fireRate = CGFloat(0.2)
+    var fireRateCounter = CGFloat(0.0)
+    
     override func didMoveToView(view: SKView)
     {
         physicsBody = SKPhysicsBody(edgeLoopFromPath: polygonPath(
@@ -98,7 +101,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     //
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?)
     {
-        addProjectile(player.position)
+        if(fireRateCounter < 0)
+        {
+            fireRateCounter = fireRate
+            addProjectile(player.position)
+        }
         circleIndic.hidden = true
         player.targetAngle = player.currentAngle
     }
@@ -118,6 +125,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         lastUpdateTime = currentTime
         
         totalTime += dt
+        fireRateCounter -= dt
         
         if(totalTime > 20.0)
         {
