@@ -29,6 +29,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var dt: CGFloat = 0
     var totalTime = CGFloat(0)
     
+    var rectTime = SKShapeNode()
+    var circleIndic = SKShapeNode()
+    
     override func didMoveToView(view: SKView)
     {
         physicsBody = SKPhysicsBody(edgeLoopFromPath: polygonPath(
@@ -39,7 +42,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         physicsWorld.contactDelegate = self
         physicsBody!.categoryBitMask = PhysicsCategory.Edge
         
-        self.addChild(player)
+        addChild(player)
+        
+        rectTime = SKShapeNode(
+            rect: CGRect(
+                origin: CGPoint(x: 300, y: 0),
+                size: CGSize(
+                    width: 600.0,
+                    height: 35.0)))
+        rectTime.name = "rectTime"
+        rectTime.position = CGPoint(x : 0, y : 950)
+        rectTime.fillColor = SKColor.init(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.75)
+        rectTime.strokeColor = SKColor.clearColor()
+        addChild(rectTime)
         
         enumerateChildNodesWithName( "//*", usingBlock:
         { node, _ in
@@ -102,6 +117,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             }
             newGame()
         }
+        
+        rectTime.xScale = (20 - totalTime) / 20
+        rectTime.position.x = 384 - 600 * (20 - totalTime) / 20
         
         //Update all objects
         enumerateChildNodesWithName( "//*", usingBlock:
