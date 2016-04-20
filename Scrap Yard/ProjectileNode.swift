@@ -7,12 +7,12 @@ class ProjectileNode: SKSpriteNode, CustomNodeEvents
     init(position: CGPoint)
     {
         super.init(
-            texture: SKTexture(imageNamed: "circle"),
+            texture: SKTexture(imageNamed: "missile"),
             color: UIColor(),
-            size: CGSize(width: 20, height: 20))
-        self.position = (position - center).normalized() * 330 + center
+            size: CGSize(width: 30, height: 30))
+        self.position = (position - center).normalized() * 325 + center
         self.zRotation = (position - center).angle
-        physicsBody = SKPhysicsBody(circleOfRadius: 17)
+        physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 40, height: 20))
         physicsBody!.affectedByGravity = false;
         physicsBody!.mass = 0.3
         

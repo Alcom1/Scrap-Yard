@@ -66,6 +66,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         circleIndic.hidden = true
         addChild(circleIndic)
         
+        for(var i = CGFloat(-1); i < 2; i += 2)
+        {
+            let ring = RotateNode(
+                texture: SKTexture(imageNamed: "Ring Cloud"),
+                size: CGSize(width: 768, height: 768),
+                rotSpeed: i * π / 8)
+            ring.position = center
+            ring.size = CGSize(width: 768, height: 768)
+            ring.zPosition = -2
+            ring.alpha = 0.5
+            addChild(ring)
+        }
+        
         enumerateChildNodesWithName( "//*", usingBlock:
         { node, _ in
             if let customNode = node as? CustomNodeEvents
