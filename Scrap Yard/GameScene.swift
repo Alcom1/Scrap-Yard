@@ -34,6 +34,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     var fireRate = CGFloat(0.2)
     var fireRateCounter = CGFloat(0.0)
+    var tutorialWait = false
     
     override func didMoveToView(view: SKView)
     {
@@ -86,6 +87,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 customNode.didMoveToScene()
             }
         })
+        
+        if(currentLevel == 1)
+        {
+            tutorialWait = true
+            
+            enumerateChildNodesWithName( "escaper", usingBlock:
+                { node, _ in
+                    if let customNode = node as? EscapeNode
+                    {
+                        customNode.active = false
+                    }
+            })
+        }
     }
     
     //
@@ -119,6 +133,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             fireRateCounter = fireRate
             addProjectile(player.position)
         }
+        if(currentLevel == 1)
+        {
+            tutorialWait = false
+            enumerateChildNodesWithName( "escaper", usingBlock:
+                { node, _ in
+                    if let customNode = node as? EscapeNode
+                    {
+                        customNode.active = true
+                    }
+            })
+        }
         circleIndic.hidden = true
         player.targetAngle = player.currentAngle
     }
@@ -137,7 +162,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         }
         lastUpdateTime = currentTime
         
-        totalTime += dt
+        if(!tutorialWait)
+        {
+            totalTime += dt
+        }
         fireRateCounter -= dt
         
         if(totalTime > 20.0)

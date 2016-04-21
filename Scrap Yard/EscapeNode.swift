@@ -2,6 +2,7 @@ import SpriteKit
 
 class EscapeNode: SKSpriteNode, CustomNodeEvents, EscapeEvents
 {
+    var active = true;
     var escape = false;
     
     func didMoveToScene()
@@ -16,7 +17,19 @@ class EscapeNode: SKSpriteNode, CustomNodeEvents, EscapeEvents
     
     func update(dt: CGFloat)
     {
-        physicsBody!.applyImpulse(((position - center).normalized() * 20 * physicsBody!.mass * dt).toCGVector())
+        if(active)
+        {
+            if(escape)
+            {
+                physicsBody!.applyImpulse(
+                    ((position - center).normalized() * 400 * physicsBody!.mass * dt).toCGVector())
+            }
+            else
+            {
+                physicsBody!.applyImpulse(
+                    ((position - center).normalized() * 20 * physicsBody!.mass * dt).toCGVector())
+            }
+        }
     }
     
     func isOut() -> Bool
@@ -26,6 +39,6 @@ class EscapeNode: SKSpriteNode, CustomNodeEvents, EscapeEvents
     
     func boost()
     {
-        
+        escape = true;
     }
 }
