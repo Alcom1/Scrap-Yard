@@ -2,10 +2,11 @@ import SpriteKit
 
 class PlayerNode: SKSpriteNode, CustomNodeEvents
 {
-    var targetAngle = CGFloat(π / 2)
-    var currentAngle = CGFloat(π / 2)
-    var rotSpeed = π / 2
+    var targetAngle = CGFloat(π / 2)    //Angle to rotate to
+    var currentAngle = CGFloat(π / 2)   //Current angle
+    var rotSpeed = π / 2                //Speed that the player rotates at
     
+    //Init
     init()
     {
         super.init(
@@ -22,13 +23,16 @@ class PlayerNode: SKSpriteNode, CustomNodeEvents
         fatalError("init(coder:) has not been implemented")
     }
     
+    //DMTS
     func didMoveToScene()
     {
 
     }
     
+    //Update
     func update(dt: CGFloat)
     {
+        //Rotate player to target
         if(currentAngle != targetAngle)
         {
             let shortest = shortestAngleBetween(
@@ -49,6 +53,7 @@ class PlayerNode: SKSpriteNode, CustomNodeEvents
         }
     }
     
+    //Set the angle that the player rotates to
     func setPosAndRot(position: CGPoint)
     {
         targetAngle = (position - center).angle

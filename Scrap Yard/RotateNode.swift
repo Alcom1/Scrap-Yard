@@ -1,8 +1,9 @@
 import SpriteKit
 
+//Node for any passive rotating objects
 class RotateNode: SKSpriteNode, CustomNodeEvents
 {
-    var rotSpeed: CGFloat?
+    var rotSpeed: CGFloat?  //Rotational speed of the object
     
     init(texture: SKTexture, size: CGSize, rotSpeed: CGFloat)
     {
@@ -18,11 +19,13 @@ class RotateNode: SKSpriteNode, CustomNodeEvents
         fatalError("init(coder:) has not been implemented")
     }
     
+    //DMTS
     func didMoveToScene()
     {
         
     }
     
+    //Update
     func update(dt: CGFloat)
     {
         zRotation += rotSpeed! * dt

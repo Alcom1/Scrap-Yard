@@ -2,8 +2,9 @@ import SpriteKit
 
 class ProjectileNode: SKSpriteNode, CustomNodeEvents
 {
-    var disabled = false;
+    var disabled = false;   //True after being disabled
     
+    //Init
     init(position: CGPoint)
     {
         super.init(
@@ -12,10 +13,13 @@ class ProjectileNode: SKSpriteNode, CustomNodeEvents
             size: CGSize(width: 30, height: 30))
         self.position = (position - center).normalized() * 325 + center
         self.zRotation = (position - center).angle
+        
+        //Physics
         physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 40, height: 20))
         physicsBody!.affectedByGravity = false;
         physicsBody!.mass = 0.3
         
+        //Masks
         physicsBody!.categoryBitMask = PhysicsCategory.Proj
         physicsBody!.collisionBitMask = PhysicsCategory.Junk
         physicsBody!.contactTestBitMask = PhysicsCategory.Junk | PhysicsCategory.Edge
@@ -26,6 +30,7 @@ class ProjectileNode: SKSpriteNode, CustomNodeEvents
         fatalError("init(coder:) has not been implemented")
     }
     
+    //DMTS
     func didMoveToScene()
     {
         physicsBody!.applyImpulse(
@@ -34,11 +39,13 @@ class ProjectileNode: SKSpriteNode, CustomNodeEvents
                 dy: -50 * sin(self.zRotation)))
     }
     
+    //Update
     func update(dt: CGFloat)
     {
 
     }
     
+    //Return if the projectile is disabled from impact
     func isDisabled() -> Bool
     {
         return disabled
