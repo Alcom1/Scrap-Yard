@@ -28,7 +28,7 @@ class EscapeNode: SKSpriteNode, CustomNodeEvents, EscapeEvents
             if(escape)
             {
                 physicsBody!.applyImpulse(
-                    ((position - center).normalized() * 400 * physicsBody!.mass * dt).toCGVector())
+                    ((position - center).normalized() * 1800 * physicsBody!.mass * dt).toCGVector())
             }
                 
             //Normal speed

@@ -34,6 +34,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var fireRate = CGFloat(0.2)         //Fire rate
     var fireRateCounter = CGFloat(0.0)  //Fire rate counter
     var tutorialWait = false            //If waiting in tutorial
+    var loss = false
     
     //DMTV
     override func didMoveToView(view: SKView)
@@ -58,6 +59,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     width: 600.0,
                     height: 35.0)))
         rectTime.name = "rectTime"
+        rectTime.zPosition = -5
         rectTime.position = CGPoint(x : 0, y : 950)
         rectTime.fillColor = SKColor.init(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.75)
         rectTime.strokeColor = SKColor.clearColor()
@@ -78,6 +80,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 texture: SKTexture(imageNamed: "Ring Cloud"),
                 size: CGSize(width: 768, height: 768),
                 rotSpeed: i * π / 8)
+            ring.name = "ring"
             ring.position = center
             ring.size = CGSize(width: 768, height: 768)
             ring.zPosition = -2
@@ -100,11 +103,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             tutorialWait = true
             
             enumerateChildNodesWithName( "escaper", usingBlock:
-                { node, _ in
-                    if let customNode = node as? EscapeNode
-                    {
-                        customNode.active = false
-                    }
+            { node, _ in
+                if let customNode = node as? EscapeNode
+                {
+                    customNode.active = false
+                }
             })
         }
     }
@@ -149,11 +152,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         {
             tutorialWait = false
             enumerateChildNodesWithName( "escaper", usingBlock:
-                { node, _ in
-                    if let customNode = node as? EscapeNode
-                    {
-                        customNode.active = true
-                    }
+            { node, _ in
+                if let customNode = node as? EscapeNode
+                {
+                    customNode.active = true
+                }
             })
         }
         
@@ -177,7 +180,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         lastUpdateTime = currentTime
         
         //Don't update totalTime if waiting on tutorial
-        if(!tutorialWait)
+        if(!tutorialWait && !loss)
         {
             totalTime += dt
         }
@@ -216,21 +219,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             {
                 if(customNode.isOut())
                 {
-                    self.newGame()
+                    self.lose()
                 }
             }
         })
         
         //Kill projectiles
         enumerateChildNodesWithName( "//*", usingBlock:
-            { node, _ in
-                if let customNode = node as? ProjectileNode
+        { node, _ in
+            if let customNode = node as? ProjectileNode
+            {
+                if(customNode.isDisabled())
                 {
-                    if(customNode.isDisabled())
-                    {
-                        customNode.removeFromParent()
-                    }
+                    customNode.removeFromParent()
                 }
+            }
         })
     }
     
@@ -251,6 +254,44 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         {
             (bodyB.node as! ProjectileNode).disabled = true;
         }
+    }
+    
+    //Lose
+    func lose()
+    {
+        loss = true
+        rectTime.fillColor = SKColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.75)
+        
+        let wait = SKAction.waitForDuration(2.0)
+        let newGame = SKAction.runBlock({self.newGame()})
+        runAction(SKAction.sequence([wait, newGame]))
+        
+        let fadeOut = SKAction.fadeAlphaTo(0, duration: 0.5)
+        enumerateChildNodesWithName( "ring", usingBlock:
+        { node, _ in
+            node.runAction(fadeOut)
+        })
+        enumerateChildNodesWithName( "ring2", usingBlock:
+        { node, _ in
+            node.alpha = 0.5
+            node.runAction(fadeOut)
+        })
+        
+        enumerateChildNodesWithName( "escaper", usingBlock:
+        { node, _ in
+            if let customNode = node as? EscapeNode
+            {
+                customNode.boost()
+            }
+        })
+        
+        physicsBody!.categoryBitMask = PhysicsCategory.None
+    }
+    
+    //Win
+    func win()
+    {
+        
     }
     
     //Start a new game
