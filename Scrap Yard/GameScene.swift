@@ -34,7 +34,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var fireRate = CGFloat(0.2)         //Fire rate
     var fireRateCounter = CGFloat(0.0)  //Fire rate counter
     var tutorialWait = false            //If waiting in tutorial
-    var loss = false
+    var end = false
     
     //DMTV
     override func didMoveToView(view: SKView)
@@ -91,6 +91,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 ring.runAction(SKAction.fadeAlphaTo(0.75, duration: 20.0))
             }
         }
+        
+        let ring3 = SKSpriteNode(texture: SKTexture(imageNamed: "ring_comp"))
+        ring3.name = "ring3"
+        ring3.position = center
+        ring3.size = CGSize(width: 768, height: 768)
+        ring3.alpha = 0
+        addChild(ring3)
         
         //DMTS all children in scene
         enumerateChildNodesWithName( "//*", usingBlock:
@@ -191,7 +198,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         lastUpdateTime = currentTime
         
         //Don't update totalTime if waiting on tutorial
-        if(!tutorialWait && !loss)
+        if(!tutorialWait && !end)
         {
             totalTime += dt
         }
@@ -270,7 +277,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     //Lose
     func lose()
     {
-        loss = true
+        end = true
         rectTime.fillColor = SKColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.75)  //Color time bar red
         
         //Wait and reset level
@@ -306,7 +313,30 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     //Win
     func win()
     {
-        newGame()
+        end = true
+        
+        //Wait and reset level
+        let wait = SKAction.waitForDuration(1.5)
+        let newGame = SKAction.runBlock({self.newGame()})
+        runAction(SKAction.sequence([wait, newGame]))
+        
+        enumerateChildNodesWithName( "ring3", usingBlock:
+        { node, _ in
+            node.runAction(SKAction.fadeAlphaTo(1.0, duration: 0.05))
+        })
+        
+        //Stop escapers!
+        enumerateChildNodesWithName( "escaper", usingBlock:
+            { node, _ in
+                if let customNode = node as? EscapeNode
+                {
+                    customNode.active = false
+                    customNode.physicsBody!.collisionBitMask = 0
+                    customNode.physicsBody!.velocity = CGVector(dx: 0, dy: 0)
+                    customNode.physicsBody!.allowsRotation = false
+                    customNode.physicsBody!.angularVelocity = 0
+                }
+        })
     }
     
     //Start a new game
