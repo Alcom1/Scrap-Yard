@@ -207,7 +207,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         fireRateCounter -= dt
         
         //Victory after 20s
-        if(totalTime > 20.0)
+        if(totalTime > 20.0 && !end)
         {
             currentLevel++
             if(currentLevel > levelCount)
