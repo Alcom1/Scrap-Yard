@@ -84,8 +84,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             ring.position = center
             ring.size = CGSize(width: 768, height: 768)
             ring.zPosition = -2
-            ring.alpha = 0.5
+            ring.alpha = 0.0
             addChild(ring)
+            if(currentLevel != 1)
+            {
+                ring.runAction(SKAction.fadeAlphaTo(0.75, duration: 20.0))
+            }
         }
         
         //DMTS all children in scene
@@ -150,14 +154,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         //End tutoral wait
         if(currentLevel == 1)
         {
-            tutorialWait = false
-            enumerateChildNodesWithName( "escaper", usingBlock:
-            { node, _ in
-                if let customNode = node as? EscapeNode
-                {
-                    customNode.active = true
-                }
-            })
+            if(tutorialWait)
+            {
+                enumerateChildNodesWithName( "ring", usingBlock:
+                { node, _ in
+                    node.runAction(SKAction.fadeAlphaTo(0.75, duration: 20.0))
+                })
+                tutorialWait = false
+                enumerateChildNodesWithName( "escaper", usingBlock:
+                { node, _ in
+                    if let customNode = node as? EscapeNode
+                    {
+                        customNode.active = true
+                    }
+                })
+            }
         }
         
         //Hide circle and stop player
@@ -196,7 +207,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             {
                 currentLevel = 1
             }
-            newGame()
+            win()
         }
         
         //resize time bar
@@ -260,12 +271,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     func lose()
     {
         loss = true
-        rectTime.fillColor = SKColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.75)
+        rectTime.fillColor = SKColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.75)  //Color time bar red
         
+        //Wait and reset level
         let wait = SKAction.waitForDuration(2.0)
         let newGame = SKAction.runBlock({self.newGame()})
         runAction(SKAction.sequence([wait, newGame]))
         
+        //Fadeout ring
         let fadeOut = SKAction.fadeAlphaTo(0, duration: 0.5)
         enumerateChildNodesWithName( "ring", usingBlock:
         { node, _ in
@@ -277,6 +290,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             node.runAction(fadeOut)
         })
         
+        //Boost escapers (Whee!)
         enumerateChildNodesWithName( "escaper", usingBlock:
         { node, _ in
             if let customNode = node as? EscapeNode
@@ -285,13 +299,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             }
         })
         
+        //Disable ring collision
         physicsBody!.categoryBitMask = PhysicsCategory.None
     }
     
     //Win
     func win()
     {
-        
+        newGame()
     }
     
     //Start a new game
