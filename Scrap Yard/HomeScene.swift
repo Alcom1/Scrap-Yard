@@ -68,6 +68,9 @@ class HomeScene: SKScene, SKPhysicsContactDelegate
                 customNode.didMoveToScene()
             }
         })
+        
+        //Set the label of the current control system
+        setControlLabel()
     }
     
     //Touches began
@@ -105,9 +108,12 @@ class HomeScene: SKScene, SKPhysicsContactDelegate
             addProjectile(player.position)
         }
         
-        //Hide circle and stop player
-        circleIndic.hidden = true
-        player.targetAngle = player.currentAngle
+        if(releaseStop)
+        {
+            //Hide circle and stop player
+            circleIndic.hidden = true
+            player.targetAngle = player.currentAngle
+        }
     }
    
     //Update
@@ -169,7 +175,7 @@ class HomeScene: SKScene, SKPhysicsContactDelegate
             {
                 if (bodyA.node as! ButtonNode).name == "play"
                 {
-                    gameManager!.loadGameScene(1, releaseStop: releaseStop)
+                    newGame()
                 }
                 else if (bodyA.node as! ButtonNode).name == "control"
                 {
@@ -188,6 +194,7 @@ class HomeScene: SKScene, SKPhysicsContactDelegate
             if let customNode = node as? SKLabelNode
             {
                 customNode.text = self.releaseStop ? "Release-Stop" : "Continous"
+                self.circleIndic.hidden = self.releaseStop
             }
         })
     }
@@ -195,8 +202,7 @@ class HomeScene: SKScene, SKPhysicsContactDelegate
     //Start a new game
     func newGame()
     {
-        let reveal = SKTransition.crossFadeWithDuration(1.0)
-        view!.presentScene(GameScene.getLevel(1)!, transition: reveal)
+        gameManager!.loadGameScene(1, releaseStop: releaseStop)
     }
     
     //Add a projectile to the scene

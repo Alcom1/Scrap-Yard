@@ -344,8 +344,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     //Start a new game
     func newGame()
     {
-        let reveal = SKTransition.crossFadeWithDuration(1.0)
-        view!.presentScene(GameScene.getLevel(currentLevel)!, transition: reveal)
+        gameManager?.loadGameScene(currentLevel + 1, releaseStop: releaseStop)
     }
     
     //Add a projectile to the scene
@@ -354,14 +353,5 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         let projectile = ProjectileNode(position: position)
         self.addChild(projectile)
         projectile.didMoveToScene()
-    }
-    
-    //Static function that instantiates a scene of a given level number.
-    class func getLevel(levelNum: Int) -> GameScene?
-    {
-        let scene = GameScene(fileNamed: "Level_\(levelNum)")!
-        scene.currentLevel = levelNum
-        scene.scaleMode = .AspectFill
-        return scene
     }
 }

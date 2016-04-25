@@ -11,19 +11,25 @@ class GameViewController: UIViewController {
         skView = self.view as! SKView
         skView.ignoresSiblingOrder = false
         skView.showsFPS = true  
-        loadHomeScene()
+        loadHomeScene(true)
     }
     
-    func loadHomeScene()
+    func loadHomeScene(releaseStop: Bool)
     {
         let scene = HomeScene(fileNamed: "Home")
         scene?.gameManager = self
+        scene?.releaseStop = releaseStop
         let reveal = SKTransition.crossFadeWithDuration(1)
         skView.presentScene(scene!, transition: reveal)
     }
     
     func loadGameScene(level: Int, releaseStop: Bool)
     {
+        if(level > levelCount)
+        {
+            loadHomeScene(releaseStop)
+        }
+        
         print(level)
         let scene = GameScene(fileNamed:"Level_\(level)")
         scene?.currentLevel = level
