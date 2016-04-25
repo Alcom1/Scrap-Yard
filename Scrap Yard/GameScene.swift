@@ -22,6 +22,7 @@ protocol EscapeEvents
 
 class GameScene: SKScene, SKPhysicsContactDelegate
 {
+    var gameManager:GameViewController?
     var currentLevel: Int = 0                   //Current level
     var player = PlayerNode()                   //Player
     var lastUpdateTime: NSTimeInterval = 0      //
@@ -361,39 +362,5 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         scene.currentLevel = levelNum
         scene.scaleMode = .AspectFill
         return scene
-    }
-    
-    //Generate an array of points arranged in a circle
-    func polygonPointArray(
-        sides: Int,
-        x: CGFloat,
-        y: CGFloat,
-        radius: CGFloat) -> [CGPoint]
-    {
-        
-        var points = [CGPoint]()
-        for(var i = 0; i < sides; i++)
-        {
-            points.append(
-                CGPoint(
-                    x: x + radius * cos(2.0 * π * CGFloat(i) / CGFloat(sides)),
-                    y: y + radius * sin(2.0 * π * CGFloat(i) / CGFloat(sides))))
-        }
-        return points
-    }
-    
-    //Generate a path of a regular polygon
-    func polygonPath(x: CGFloat, y: CGFloat, radius: CGFloat, sides: Int) -> CGPathRef
-    {
-        let path = CGPathCreateMutable()
-        let points = polygonPointArray(sides, x: x, y: y, radius: radius)
-        let cpg = points[0]
-        CGPathMoveToPoint(path, nil, cpg.x, cpg.y)
-        for p in points
-        {
-            CGPathAddLineToPoint(path, nil, p.x, p.y)
-        }
-        CGPathCloseSubpath(path)
-        return path
     }
 }

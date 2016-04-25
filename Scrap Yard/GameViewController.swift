@@ -2,11 +2,18 @@ import UIKit
 import SpriteKit
 
 class GameViewController: UIViewController {
+    var skView:SKView!
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
+        skView = self.view as! SKView
+        skView.ignoresSiblingOrder = false
+        skView.showsFPS = true  
+        loadHomeScene()
+        
+        /*
         if let scene = GameScene.getLevel(1)
         {
             // Configure the view.
@@ -23,6 +30,14 @@ class GameViewController: UIViewController {
             
             skView.presentScene(scene)
         }
+        */
+    }
+    
+    func loadHomeScene()
+    {
+        let scene = HomeScene(fileNamed: "Home")
+        let reveal = SKTransition.crossFadeWithDuration(1)
+        skView.presentScene(scene!, transition: reveal)
     }
     
     override func shouldAutorotate() -> Bool
