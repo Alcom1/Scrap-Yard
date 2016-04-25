@@ -36,6 +36,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var fireRateCounter = CGFloat(0.0)  //Fire rate counter
     var tutorialWait = false            //If waiting in tutorial
     var end = false
+    var releaseStop = true
     
     //DMTV
     override func didMoveToView(view: SKView)

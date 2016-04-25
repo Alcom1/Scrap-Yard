@@ -12,31 +12,25 @@ class GameViewController: UIViewController {
         skView.ignoresSiblingOrder = false
         skView.showsFPS = true  
         loadHomeScene()
-        
-        /*
-        if let scene = GameScene.getLevel(1)
-        {
-            // Configure the view.
-            let skView = self.view as! SKView
-            //skView.showsPhysics = true
-            skView.showsFPS = true
-            skView.showsNodeCount = true
-            
-            /* Sprite Kit applies additional optimizations to improve rendering performance */
-            skView.ignoresSiblingOrder = false
-            
-            /* Set the scale mode to scale to fit the window */
-            scene.scaleMode = .AspectFill
-            
-            skView.presentScene(scene)
-        }
-        */
     }
     
     func loadHomeScene()
     {
         let scene = HomeScene(fileNamed: "Home")
+        scene?.gameManager = self
         let reveal = SKTransition.crossFadeWithDuration(1)
+        skView.presentScene(scene!, transition: reveal)
+    }
+    
+    func loadGameScene(level: Int, releaseStop: Bool)
+    {
+        print(level)
+        let scene = GameScene(fileNamed:"Level_\(level)")
+        scene?.currentLevel = level
+        scene?.gameManager = self
+        scene?.releaseStop = releaseStop
+        
+        let reveal = SKTransition.pushWithDirection(SKTransitionDirection.Left, duration: 1)
         skView.presentScene(scene!, transition: reveal)
     }
     

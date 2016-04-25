@@ -3,6 +3,7 @@ import SpriteKit
 
 class HomeScene: SKScene, SKPhysicsContactDelegate
 {
+    var gameManager:GameViewController?
     var player = PlayerNode()                   //Player
     var lastUpdateTime: NSTimeInterval = 0      //
     var dt: CGFloat = 0                         //delta time
@@ -12,6 +13,7 @@ class HomeScene: SKScene, SKPhysicsContactDelegate
     
     var fireRate = CGFloat(0.2)         //Fire rate
     var fireRateCounter = CGFloat(0.0)  //Fire rate counter
+    var releaseStop = true
     
     //DMTV
     override func didMoveToView(view: SKView)
@@ -163,7 +165,31 @@ class HomeScene: SKScene, SKPhysicsContactDelegate
             collision == PhysicsCategory.Proj | PhysicsCategory.Edge
         {
             (bodyB.node as! ProjectileNode).disabled = true;
+            if collision == PhysicsCategory.Proj | PhysicsCategory.Junk
+            {
+                if (bodyA.node as! ButtonNode).name == "play"
+                {
+                    gameManager!.loadGameScene(1, releaseStop: releaseStop)
+                }
+                else if (bodyA.node as! ButtonNode).name == "control"
+                {
+                    releaseStop = !releaseStop
+                    setControlLabel()
+                }
+            }
         }
+    }
+    
+    //Swaps the control label to display the current controls
+    func setControlLabel()
+    {
+        enumerateChildNodesWithName("label_controls", usingBlock:
+        { node, _ in
+            if let customNode = node as? SKLabelNode
+            {
+                customNode.text = self.releaseStop ? "Release-Stop" : "Continous"
+            }
+        })
     }
     
     //Start a new game
