@@ -14,6 +14,7 @@ class GameViewController: UIViewController {
         loadHomeScene(true)
     }
     
+    //Load the main menu
     func loadHomeScene(releaseStop: Bool)
     {
         let scene = HomeScene(fileNamed: "Home")
@@ -23,11 +24,13 @@ class GameViewController: UIViewController {
         skView.presentScene(scene!, transition: reveal)
     }
     
+    //Load a level
     func loadGameScene(level: Int, releaseStop: Bool, win: Bool)
     {
         if(level > levelCount)
         {
             loadHomeScene(releaseStop)
+            return
         }
         
         let scene = GameScene(fileNamed:"Level_\(level)")
