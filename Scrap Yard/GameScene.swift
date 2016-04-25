@@ -35,8 +35,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var fireRate = CGFloat(0.2)         //Fire rate
     var fireRateCounter = CGFloat(0.0)  //Fire rate counter
     var tutorialWait = false            //If waiting in tutorial
-    var end = false
-    var releaseStop = true
+    var end = false                     //If level has ended
+    var releaseStop = true              //If the player stops moving when touch ends
     
     //DMTV
     override func didMoveToView(view: SKView)
@@ -56,13 +56,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         //Time bar
         rectTime = SKShapeNode(
             rect: CGRect(
-                origin: CGPoint(x: 300, y: 0),
+                origin: CGPoint(x: 360, y: 0),
                 size: CGSize(
-                    width: 600.0,
-                    height: 35.0)))
+                    width: 480.0,
+                    height: 45.0)))
         rectTime.name = "rectTime"
         rectTime.zPosition = -5
-        rectTime.position = CGPoint(x : 0, y : 950)
+        rectTime.position = CGPoint(x : 0, y : 951)
         rectTime.fillColor = SKColor.init(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.75)
         rectTime.strokeColor = SKColor.clearColor()
         addChild(rectTime)
@@ -75,7 +75,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         circleIndic.hidden = true
         addChild(circleIndic)
         
-        //Backroung ring particle effect
+        //Backround ring particle effect
         for(var i = CGFloat(-1); i < 2; i += 2)
         {
             let ring = RotateNode(
@@ -94,6 +94,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             }
         }
         
+        //Victory ring for victorious victory
         let ring3 = SKSpriteNode(texture: SKTexture(imageNamed: "ring_comp"))
         ring3.name = "ring3"
         ring3.position = center
@@ -101,7 +102,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         ring3.alpha = 0
         addChild(ring3)
         
-        //DMTS all children in scene
+        //Backgroud
+        let bg = SKSpriteNode(texture: SKTexture(imageNamed: "background"))
+        bg.position = center
+        bg.zPosition = -10
+        bg.size = CGSize(width: 768, height: 1024)
+        addChild(bg)
+        
+        //DMTS all custom nodes in scene
         enumerateChildNodesWithName( "//*", usingBlock:
         { node, _ in
             if let customNode = node as? CustomNodeEvents
@@ -109,6 +117,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 customNode.didMoveToScene()
             }
         })
+        
+        setContainmentLabel("Containment: In Progress", color: SKColor(red: 1.0, green: 1.0, blue: 0.0, alpha: 1.0))
         
         //Set tutorial for level 1
         if(currentLevel == 1)
@@ -214,11 +224,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         //Victory after 20s
         if(totalTime > 20.0 && !end)
         {
-            currentLevel++
-            if(currentLevel > levelCount)
-            {
-                currentLevel = 1
-            }
             win()
         }
         
@@ -284,10 +289,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     {
         end = true
         rectTime.fillColor = SKColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.75)  //Color time bar red
+        setContainmentLabel("Containment: Failed!", color: SKColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0))
         
         //Wait and reset level
         let wait = SKAction.waitForDuration(2.0)
-        let newGame = SKAction.runBlock({self.newGame()})
+        let newGame = SKAction.runBlock({self.newGame(false)})
         runAction(SKAction.sequence([wait, newGame]))
         
         //Fadeout ring
@@ -318,11 +324,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     //Win
     func win()
     {
+        currentLevel++
+        
         end = true
+        setContainmentLabel("Containment: Sucessful!", color: SKColor(red: 0.4, green: 1.0, blue: 0.4, alpha: 1.0))
         
         //Wait and reset level
         let wait = SKAction.waitForDuration(1.5)
-        let newGame = SKAction.runBlock({self.newGame()})
+        let newGame = SKAction.runBlock({self.newGame(true)})
         runAction(SKAction.sequence([wait, newGame]))
         
         enumerateChildNodesWithName( "ring3", usingBlock:
@@ -332,22 +341,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         //Stop escapers!
         enumerateChildNodesWithName( "escaper", usingBlock:
-            { node, _ in
-                if let customNode = node as? EscapeNode
-                {
-                    customNode.active = false
-                    customNode.physicsBody!.collisionBitMask = 0
-                    customNode.physicsBody!.velocity = CGVector(dx: 0, dy: 0)
-                    customNode.physicsBody!.allowsRotation = false
-                    customNode.physicsBody!.angularVelocity = 0
-                }
+        { node, _ in
+            if let customNode = node as? EscapeNode
+            {
+                customNode.active = false
+                customNode.physicsBody!.collisionBitMask = 0
+                customNode.physicsBody!.velocity = CGVector(dx: 0, dy: 0)
+                customNode.physicsBody!.allowsRotation = false
+                customNode.physicsBody!.angularVelocity = 0
+            }
         })
     }
     
     //Start a new game
-    func newGame()
+    func newGame(win: Bool)
     {
-        gameManager?.loadGameScene(currentLevel + 1, releaseStop: releaseStop)
+        gameManager?.loadGameScene(currentLevel, releaseStop: releaseStop, win: win)
     }
     
     //Add a projectile to the scene
@@ -356,5 +365,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         let projectile = ProjectileNode(position: position)
         self.addChild(projectile)
         projectile.didMoveToScene()
+    }
+    
+    func setContainmentLabel(label: String, color: SKColor)
+    {
+        //DMTS all children in scene
+        enumerateChildNodesWithName( "label_cont", usingBlock:
+        { node, _ in
+            if let customNode = node as? SKLabelNode
+            {
+                customNode.text = label
+                customNode.fontColor = color
+            }
+        })
     }
 }

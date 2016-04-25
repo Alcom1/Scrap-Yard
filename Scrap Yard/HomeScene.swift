@@ -13,7 +13,7 @@ class HomeScene: SKScene, SKPhysicsContactDelegate
     
     var fireRate = CGFloat(0.2)         //Fire rate
     var fireRateCounter = CGFloat(0.0)  //Fire rate counter
-    var releaseStop = true
+    var releaseStop = true              //If the player stops moving when touch ends
     
     //DMTV
     override func didMoveToView(view: SKView)
@@ -53,12 +53,12 @@ class HomeScene: SKScene, SKPhysicsContactDelegate
             addChild(ring)
         }
         
-        let ring3 = SKSpriteNode(texture: SKTexture(imageNamed: "ring_comp"))
-        ring3.name = "ring3"
-        ring3.position = center
-        ring3.size = CGSize(width: 768, height: 768)
-        ring3.alpha = 0
-        addChild(ring3)
+        //Backgroud
+        let bg = SKSpriteNode(texture: SKTexture(imageNamed: "background"))
+        bg.position = center
+        bg.zPosition = -10
+        bg.size = CGSize(width: 768, height: 1024)
+        addChild(bg)
         
         //DMTS all children in scene
         enumerateChildNodesWithName( "//*", usingBlock:
@@ -202,7 +202,7 @@ class HomeScene: SKScene, SKPhysicsContactDelegate
     //Start a new game
     func newGame()
     {
-        gameManager!.loadGameScene(1, releaseStop: releaseStop)
+        gameManager!.loadGameScene(1, releaseStop: releaseStop, win: true)
     }
     
     //Add a projectile to the scene

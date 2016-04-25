@@ -23,20 +23,21 @@ class GameViewController: UIViewController {
         skView.presentScene(scene!, transition: reveal)
     }
     
-    func loadGameScene(level: Int, releaseStop: Bool)
+    func loadGameScene(level: Int, releaseStop: Bool, win: Bool)
     {
         if(level > levelCount)
         {
             loadHomeScene(releaseStop)
         }
         
-        print(level)
         let scene = GameScene(fileNamed:"Level_\(level)")
         scene?.currentLevel = level
         scene?.gameManager = self
         scene?.releaseStop = releaseStop
         
-        let reveal = SKTransition.pushWithDirection(SKTransitionDirection.Left, duration: 1)
+        let reveal = win ?
+            SKTransition.pushWithDirection(SKTransitionDirection.Left, duration: 1) :
+            SKTransition.crossFadeWithDuration(1.0)
         skView.presentScene(scene!, transition: reveal)
     }
     

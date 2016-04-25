@@ -15,6 +15,7 @@ class PlayerNode: SKSpriteNode, CustomNodeEvents
             size: CGSize(width: 50, height: 25))
         
         self.position = center + CGPoint(x: 0, y: 350)
+        self.zPosition = 10
         self.zRotation = (self.position - center).angle
     }
     
