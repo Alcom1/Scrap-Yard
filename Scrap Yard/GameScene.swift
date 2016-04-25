@@ -180,9 +180,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             }
         }
         
-        //Hide circle and stop player
-        circleIndic.hidden = true
-        player.targetAngle = player.currentAngle
+        if(releaseStop)
+        {
+            //Hide circle and stop player
+            circleIndic.hidden = true
+            player.targetAngle = player.currentAngle
+        }
     }
    
     //Update
