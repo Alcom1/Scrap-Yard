@@ -34,7 +34,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     var fireRate = CGFloat(0.2)         //Fire rate
     var fireRateCounter = CGFloat(0.0)  //Fire rate counter
-    var tutorialWait = false            //If waiting in tutorial
+    var tutorialWait = false            //If waiting in tutorial (Unusued)
     var end = false                     //If level has ended
     var releaseStop = true              //If the player stops moving when touch ends
     var pauseFix = false                //Hax bool to prevent massive jump after unpausing.
@@ -120,20 +120,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         })
         
         setContainmentLabel("Containment: In Progress", color: SKColor(red: 1.0, green: 1.0, blue: 0.0, alpha: 1.0))
-        
-        //Set tutorial for level 1
-        if(currentLevel == 1)
-        {
-            tutorialWait = true
-            
-            enumerateChildNodesWithName( "escaper", usingBlock:
-            { node, _ in
-                if let customNode = node as? EscapeNode
-                {
-                    customNode.active = false
-                }
-            })
-        }
     }
     
     //Touches began

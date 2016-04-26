@@ -14,7 +14,7 @@ class GameViewController: UIViewController {
         skView.ignoresSiblingOrder = false
         skView.showsFPS = true
         let option = NSUserDefaults.standardUserDefaults().boolForKey("option")
-        loadHomeScene(option)
+        loadSplashScene(option)
     }
     
     //Load the main menu
@@ -25,6 +25,16 @@ class GameViewController: UIViewController {
         mainScene?.releaseStop = releaseStop
         let reveal = SKTransition.crossFadeWithDuration(1)
         skView.presentScene(mainScene!, transition: reveal)
+    }
+    
+    //Load the splash screen
+    func loadSplashScene(releaseStop: Bool)
+    {
+        let victScene = VictScene(fileNamed: "Splash")
+        victScene?.gameManager = self
+        victScene?.releaseStop = releaseStop
+        let reveal = SKTransition.pushWithDirection(SKTransitionDirection.Left, duration: 1)
+        skView.presentScene(victScene!, transition: reveal)
     }
     
     //Load the main menu

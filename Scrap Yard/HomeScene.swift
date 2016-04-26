@@ -48,7 +48,7 @@ class HomeScene: SKScene, SKPhysicsContactDelegate
             ring.position = center
             ring.size = CGSize(width: 768, height: 768)
             ring.zPosition = -2
-            ring.alpha = 1.0
+            ring.alpha = 0.5
             addChild(ring)
         }
         
