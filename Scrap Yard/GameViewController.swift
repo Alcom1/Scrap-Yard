@@ -41,6 +41,9 @@ class GameViewController: UIViewController {
         let reveal = win ?
             SKTransition.pushWithDirection(SKTransitionDirection.Left, duration: 1) :
             SKTransition.crossFadeWithDuration(1.0)
+        
+        reveal.pausesIncomingScene = true
+        reveal.pausesOutgoingScene = true
         skView.presentScene(scene!, transition: reveal)
     }
     

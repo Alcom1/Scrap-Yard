@@ -10,11 +10,11 @@ class PlayerNode: SKSpriteNode, CustomNodeEvents
     init()
     {
         super.init(
-            texture: SKTexture(imageNamed: "square"),
+            texture: SKTexture(imageNamed: "player"),
             color: UIColor(),
-            size: CGSize(width: 50, height: 25))
+            size: CGSize(width: 100, height: 130))
         
-        self.position = center + CGPoint(x: 0, y: 350)
+        self.position = center + CGPoint(x: 0, y: 340)
         self.zPosition = 10
         self.zRotation = (self.position - center).angle
     }
@@ -49,7 +49,7 @@ class PlayerNode: SKSpriteNode, CustomNodeEvents
                 currentAngle -= amtToRotate * CGFloat(sign(Float(shortest)))
             }
             
-            self.position = center + CGPoint(angle: currentAngle, mag: 350)
+            self.position = center + CGPoint(angle: currentAngle, mag: 340)
             self.zRotation = currentAngle
         }
     }

@@ -11,7 +11,7 @@ class ProjectileNode: SKSpriteNode, CustomNodeEvents
             texture: SKTexture(imageNamed: "missile"),
             color: UIColor(),
             size: CGSize(width: 30, height: 30))
-        self.position = (position - center).normalized() * 325 + center
+        self.position = (position - center).normalized() * 310 + center
         self.zRotation = (position - center).angle
         
         //Physics

@@ -133,6 +133,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 }
             })
         }
+        
+        print("Kek")
     }
     
     //Touches began
@@ -378,5 +380,42 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 customNode.fontColor = color
             }
         })
+    }
+    
+    //Set pause
+    var gameLoopPaused : Bool = true
+    {
+        didSet
+        {
+            if gameLoopPaused
+            {
+                runPauseAction()
+            }
+            else
+            {
+                runUnpauseAction()
+            }
+        }
+    }
+    
+    //Pause action
+    func runUnpauseAction()
+    {
+        let unPauseAction = SKAction.sequence([
+            SKAction.fadeInWithDuration(1.5),
+            SKAction.runBlock({
+                self.physicsWorld.speed = 1.0
+                self.view?.paused = false
+            })
+        ])
+        runAction(unPauseAction)
+    }
+    
+    //Unpause action
+    func runPauseAction()
+    {
+        scene?.alpha = 0.50
+        physicsWorld.speed = 0.0
+        self.view?.paused = true
     }
 }
