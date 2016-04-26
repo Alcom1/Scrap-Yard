@@ -17,6 +17,6 @@ class ButtonNode: SKSpriteNode, CustomNodeEvents
     //Update
     func update(dt: CGFloat)
     {
-
+        zRotation += π / 4 * dt
     }
 }

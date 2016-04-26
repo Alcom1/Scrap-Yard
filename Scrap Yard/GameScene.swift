@@ -289,6 +289,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             collision == PhysicsCategory.Proj | PhysicsCategory.Edge
         {
             (bodyB.node as! ProjectileNode).disabled = true;
+            if collision == PhysicsCategory.Proj | PhysicsCategory.Junk
+            {
+                runAction(SKAction.playSoundFileNamed("hit_1.wav", waitForCompletion: false))
+            }
         }
     }
     
@@ -373,6 +377,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         let projectile = ProjectileNode(position: position)
         self.addChild(projectile)
         projectile.didMoveToScene()
+        runAction(SKAction.playSoundFileNamed("m_fury.wav", waitForCompletion: false))
     }
     
     func setContainmentLabel(label: String, color: SKColor)

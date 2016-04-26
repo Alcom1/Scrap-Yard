@@ -173,6 +173,7 @@ class HomeScene: SKScene, SKPhysicsContactDelegate
             (bodyB.node as! ProjectileNode).disabled = true;
             if collision == PhysicsCategory.Proj | PhysicsCategory.Junk
             {
+                runAction(SKAction.playSoundFileNamed("hit_1.wav", waitForCompletion: false))
                 if (bodyA.node as! ButtonNode).name == "play"
                 {
                     newGame()
@@ -213,5 +214,6 @@ class HomeScene: SKScene, SKPhysicsContactDelegate
         let projectile = ProjectileNode(position: position)
         self.addChild(projectile)
         projectile.didMoveToScene()
+        runAction(SKAction.playSoundFileNamed("m_fury.wav", waitForCompletion: false))
     }
 }

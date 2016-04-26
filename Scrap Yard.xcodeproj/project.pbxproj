@@ -13,7 +13,6 @@
 		6712F8531CBC5A0200A1158F /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6712F8521CBC5A0200A1158F /* GameScene.swift */; };
 		6712F8551CBC5A0200A1158F /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6712F8541CBC5A0200A1158F /* GameViewController.swift */; };
 		6712F8581CBC5A0200A1158F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6712F8561CBC5A0200A1158F /* Main.storyboard */; };
-		6712F85A1CBC5A0200A1158F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6712F8591CBC5A0200A1158F /* Assets.xcassets */; };
 		6712F85D1CBC5A0200A1158F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6712F85B1CBC5A0200A1158F /* LaunchScreen.storyboard */; };
 		6712F8671CBC5E2A00A1158F /* JunkNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6712F8661CBC5E2A00A1158F /* JunkNode.swift */; };
 		6712F8691CBC76D400A1158F /* EscapeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6712F8681CBC76D400A1158F /* EscapeNode.swift */; };
@@ -25,6 +24,9 @@
 		6790BF8C1CCEB5A9002226A9 /* HomeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6790BF8B1CCEB5A8002226A9 /* HomeScene.swift */; };
 		6790BF8E1CCEB7F7002226A9 /* Home.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6790BF8D1CCEB7F7002226A9 /* Home.sks */; };
 		6790BF901CCEBE08002226A9 /* ButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6790BF8F1CCEBE08002226A9 /* ButtonNode.swift */; };
+		6790BF921CCF030D002226A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6790BF911CCF030D002226A9 /* Assets.xcassets */; };
+		6790BF9A1CCF0AEE002226A9 /* m_fury.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6790BF981CCF0AEE002226A9 /* m_fury.wav */; };
+		6790BF9B1CCF0AEE002226A9 /* hit_1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6790BF991CCF0AEE002226A9 /* hit_1.wav */; };
 		67BA2D0B1CC84175006345E4 /* RotateNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67BA2D0A1CC84175006345E4 /* RotateNode.swift */; };
 /* End PBXBuildFile section */
 
@@ -36,7 +38,6 @@
 		6712F8521CBC5A0200A1158F /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		6712F8541CBC5A0200A1158F /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		6712F8571CBC5A0200A1158F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		6712F8591CBC5A0200A1158F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6712F85C1CBC5A0200A1158F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6712F85E1CBC5A0200A1158F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6712F8661CBC5E2A00A1158F /* JunkNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JunkNode.swift; sourceTree = "<group>"; };
@@ -49,6 +50,9 @@
 		6790BF8B1CCEB5A8002226A9 /* HomeScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeScene.swift; sourceTree = "<group>"; };
 		6790BF8D1CCEB7F7002226A9 /* Home.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Home.sks; sourceTree = "<group>"; };
 		6790BF8F1CCEBE08002226A9 /* ButtonNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonNode.swift; sourceTree = "<group>"; };
+		6790BF911CCF030D002226A9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6790BF981CCF0AEE002226A9 /* m_fury.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = m_fury.wav; sourceTree = "<group>"; };
+		6790BF991CCF0AEE002226A9 /* hit_1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hit_1.wav; sourceTree = "<group>"; };
 		67BA2D0A1CC84175006345E4 /* RotateNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotateNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -82,14 +86,15 @@
 		6712F84D1CBC5A0200A1158F /* Scrap Yard */ = {
 			isa = PBXGroup;
 			children = (
+				6790BF971CCF0AAA002226A9 /* Sounds */,
 				6712F8651CBC5DE700A1158F /* Levels */,
 				6712F8641CBC5DD800A1158F /* Nodes */,
 				6712F84E1CBC5A0200A1158F /* AppDelegate.swift */,
 				6712F8521CBC5A0200A1158F /* GameScene.swift */,
 				6790BF8B1CCEB5A8002226A9 /* HomeScene.swift */,
 				6712F8541CBC5A0200A1158F /* GameViewController.swift */,
+				6790BF911CCF030D002226A9 /* Assets.xcassets */,
 				6712F8561CBC5A0200A1158F /* Main.storyboard */,
-				6712F8591CBC5A0200A1158F /* Assets.xcassets */,
 				6712F85B1CBC5A0200A1158F /* LaunchScreen.storyboard */,
 				6712F85E1CBC5A0200A1158F /* Info.plist */,
 				6712F86C1CBC86A800A1158F /* Utility.swift */,
@@ -120,6 +125,15 @@
 				6737CC6B1CBF1C8A00E192CC /* Level_4.sks */,
 			);
 			name = Levels;
+			sourceTree = "<group>";
+		};
+		6790BF971CCF0AAA002226A9 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				6790BF981CCF0AEE002226A9 /* m_fury.wav */,
+				6790BF991CCF0AEE002226A9 /* hit_1.wav */,
+			);
+			name = Sounds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -182,11 +196,13 @@
 			files = (
 				6790BF8E1CCEB7F7002226A9 /* Home.sks in Resources */,
 				6737CC6C1CBF1C8A00E192CC /* Level_4.sks in Resources */,
+				6790BF9B1CCF0AEE002226A9 /* hit_1.wav in Resources */,
 				6737CC6A1CBF0A5600E192CC /* Level_3.sks in Resources */,
 				6737CC681CBEFBC400E192CC /* Level_2.sks in Resources */,
 				6712F8511CBC5A0200A1158F /* Level_1.sks in Resources */,
 				6712F85D1CBC5A0200A1158F /* LaunchScreen.storyboard in Resources */,
-				6712F85A1CBC5A0200A1158F /* Assets.xcassets in Resources */,
+				6790BF9A1CCF0AEE002226A9 /* m_fury.wav in Resources */,
+				6790BF921CCF030D002226A9 /* Assets.xcassets in Resources */,
 				6712F8581CBC5A0200A1158F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
