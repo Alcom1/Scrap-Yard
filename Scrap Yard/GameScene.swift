@@ -37,6 +37,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var tutorialWait = false            //If waiting in tutorial
     var end = false                     //If level has ended
     var releaseStop = true              //If the player stops moving when touch ends
+    var pauseFix = false                //Hax bool to prevent massive jump after unpausing.
     
     //DMTV
     override func didMoveToView(view: SKView)
@@ -133,8 +134,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 }
             })
         }
-        
-        print("Kek")
     }
     
     //Touches began
@@ -203,6 +202,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     //Update
     override func update(currentTime: CFTimeInterval)
     {
+        //Unpause jump fix
+        if(pauseFix)
+        {
+            print(lastUpdateTime)
+            print(currentTime)
+            pauseFix = false
+            lastUpdateTime = currentTime
+        }
+        
         //Set delta time
         if(lastUpdateTime > 0)
         {
@@ -401,20 +409,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     //Pause action
     func runUnpauseAction()
     {
-        let unPauseAction = SKAction.sequence([
-            SKAction.fadeInWithDuration(1.5),
-            SKAction.runBlock({
-                self.physicsWorld.speed = 1.0
-                self.view?.paused = false
-            })
-        ])
-        runAction(unPauseAction)
+        self.view?.paused = false
+        self.pauseFix = true
+        self.physicsWorld.speed = 1.0
     }
     
     //Unpause action
     func runPauseAction()
     {
-        scene?.alpha = 0.50
         physicsWorld.speed = 0.0
         self.view?.paused = true
     }
