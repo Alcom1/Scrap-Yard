@@ -20,11 +20,21 @@ class GameViewController: UIViewController {
     //Load the main menu
     func loadHomeScene(releaseStop: Bool)
     {
-        let MainScene = HomeScene(fileNamed: "Home")
-        MainScene?.gameManager = self
-        MainScene?.releaseStop = releaseStop
+        let mainScene = HomeScene(fileNamed: "Home")
+        mainScene?.gameManager = self
+        mainScene?.releaseStop = releaseStop
         let reveal = SKTransition.crossFadeWithDuration(1)
-        skView.presentScene(MainScene!, transition: reveal)
+        skView.presentScene(mainScene!, transition: reveal)
+    }
+    
+    //Load the main menu
+    func loadVictScene(releaseStop: Bool)
+    {
+        let victScene = VictScene(fileNamed: "Victory")
+        victScene?.gameManager = self
+        victScene?.releaseStop = releaseStop
+        let reveal = SKTransition.pushWithDirection(SKTransitionDirection.Left, duration: 1)
+        skView.presentScene(victScene!, transition: reveal)
     }
     
     //Load a level
@@ -32,7 +42,7 @@ class GameViewController: UIViewController {
     {
         if(level > levelCount)
         {
-            loadHomeScene(releaseStop)
+            loadVictScene(releaseStop)
             return
         }
         
