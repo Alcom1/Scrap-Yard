@@ -18,6 +18,8 @@
 		6712F8691CBC76D400A1158F /* EscapeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6712F8681CBC76D400A1158F /* EscapeNode.swift */; };
 		6712F86B1CBC7DE100A1158F /* ProjectileNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6712F86A1CBC7DE100A1158F /* ProjectileNode.swift */; };
 		6712F86D1CBC86A800A1158F /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6712F86C1CBC86A800A1158F /* Utility.swift */; };
+		6714269E1CCF186900D3B7EE /* Victory.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6714269D1CCF186900D3B7EE /* Victory.sks */; };
+		671426A01CCF191300D3B7EE /* VictScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6714269F1CCF191300D3B7EE /* VictScene.swift */; };
 		6737CC681CBEFBC400E192CC /* Level_2.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6737CC671CBEFBC400E192CC /* Level_2.sks */; };
 		6737CC6A1CBF0A5600E192CC /* Level_3.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6737CC691CBF0A5600E192CC /* Level_3.sks */; };
 		6737CC6C1CBF1C8A00E192CC /* Level_4.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6737CC6B1CBF1C8A00E192CC /* Level_4.sks */; };
@@ -44,6 +46,8 @@
 		6712F8681CBC76D400A1158F /* EscapeNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EscapeNode.swift; sourceTree = "<group>"; };
 		6712F86A1CBC7DE100A1158F /* ProjectileNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectileNode.swift; sourceTree = "<group>"; };
 		6712F86C1CBC86A800A1158F /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
+		6714269D1CCF186900D3B7EE /* Victory.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Victory.sks; sourceTree = "<group>"; };
+		6714269F1CCF191300D3B7EE /* VictScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VictScene.swift; sourceTree = "<group>"; };
 		6737CC671CBEFBC400E192CC /* Level_2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level_2.sks; sourceTree = "<group>"; };
 		6737CC691CBF0A5600E192CC /* Level_3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level_3.sks; sourceTree = "<group>"; };
 		6737CC6B1CBF1C8A00E192CC /* Level_4.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level_4.sks; sourceTree = "<group>"; };
@@ -92,6 +96,7 @@
 				6712F84E1CBC5A0200A1158F /* AppDelegate.swift */,
 				6712F8521CBC5A0200A1158F /* GameScene.swift */,
 				6790BF8B1CCEB5A8002226A9 /* HomeScene.swift */,
+				6714269F1CCF191300D3B7EE /* VictScene.swift */,
 				6712F8541CBC5A0200A1158F /* GameViewController.swift */,
 				6790BF911CCF030D002226A9 /* Assets.xcassets */,
 				6712F8561CBC5A0200A1158F /* Main.storyboard */,
@@ -119,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				6790BF8D1CCEB7F7002226A9 /* Home.sks */,
+				6714269D1CCF186900D3B7EE /* Victory.sks */,
 				6712F8501CBC5A0200A1158F /* Level_1.sks */,
 				6737CC671CBEFBC400E192CC /* Level_2.sks */,
 				6737CC691CBF0A5600E192CC /* Level_3.sks */,
@@ -203,6 +209,7 @@
 				6712F85D1CBC5A0200A1158F /* LaunchScreen.storyboard in Resources */,
 				6790BF9A1CCF0AEE002226A9 /* m_fury.wav in Resources */,
 				6790BF921CCF030D002226A9 /* Assets.xcassets in Resources */,
+				6714269E1CCF186900D3B7EE /* Victory.sks in Resources */,
 				6712F8581CBC5A0200A1158F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -224,6 +231,7 @@
 				6712F8551CBC5A0200A1158F /* GameViewController.swift in Sources */,
 				67BA2D0B1CC84175006345E4 /* RotateNode.swift in Sources */,
 				670556611CBD9F2900FD5BF3 /* PlayerNode.swift in Sources */,
+				671426A01CCF191300D3B7EE /* VictScene.swift in Sources */,
 				6712F84F1CBC5A0200A1158F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

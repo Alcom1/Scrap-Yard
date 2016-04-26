@@ -7,7 +7,6 @@ class HomeScene: SKScene, SKPhysicsContactDelegate
     var player = PlayerNode()                   //Player
     var lastUpdateTime: NSTimeInterval = 0      //
     var dt: CGFloat = 0                         //delta time
-    var totalTime = CGFloat(0)                  //Total time that has passed
     
     var circleIndic = SKShapeNode()     //Indicator of current touch location
     
