@@ -195,6 +195,8 @@ class HomeScene: SKScene, SKPhysicsContactDelegate
             {
                 customNode.text = self.releaseStop ? "Release-Stop" : "Continous"
                 self.circleIndic.hidden = self.releaseStop
+                NSUserDefaults.standardUserDefaults().setBool(self.releaseStop, forKey: "option")
+                NSUserDefaults.standardUserDefaults().synchronize()
             }
         })
     }

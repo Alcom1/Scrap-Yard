@@ -205,8 +205,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         //Unpause jump fix
         if(pauseFix)
         {
-            print(lastUpdateTime)
-            print(currentTime)
             pauseFix = false
             lastUpdateTime = currentTime
         }

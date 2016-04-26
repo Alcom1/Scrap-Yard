@@ -12,8 +12,9 @@ class GameViewController: UIViewController {
         
         skView = self.view as! SKView
         skView.ignoresSiblingOrder = false
-        skView.showsFPS = true  
-        loadHomeScene(true)
+        skView.showsFPS = true
+        let option = NSUserDefaults.standardUserDefaults().boolForKey("option")
+        loadHomeScene(option)
     }
     
     //Load the main menu
@@ -78,7 +79,7 @@ class GameViewController: UIViewController {
         return true
     }
     
-    // MARK: - Notifications -
+    //NSNotifications for leaving and entering
     func setupNotifications()
     {
         NSNotificationCenter.defaultCenter().addObserver(
@@ -94,18 +95,21 @@ class GameViewController: UIViewController {
             object: nil)
     }
     
+    //Pause
     func willResignActive(n:NSNotification)
     {
         print("willResignActive notification")
         scene?.gameLoopPaused = true
     }
     
+    //Unpause
     func didBecomeActive(n:NSNotification)
     {
         print("didBecomeActive notification")
         scene?.gameLoopPaused = false
     }
     
+    //Remove notifications
     func teardownNotifications()
     {
         NSNotificationCenter.defaultCenter().removeObserver(
