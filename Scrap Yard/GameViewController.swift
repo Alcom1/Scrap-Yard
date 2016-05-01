@@ -5,6 +5,7 @@ class GameViewController: UIViewController {
     var skView:SKView!
     var scene: GameScene?
     
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -13,6 +14,7 @@ class GameViewController: UIViewController {
         skView = self.view as! SKView
         skView.ignoresSiblingOrder = false
         skView.showsFPS = true
+        
         let option = NSUserDefaults.standardUserDefaults().boolForKey("option")
         loadSplashScene(option)
     }

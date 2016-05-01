@@ -13,6 +13,9 @@ class ProjectileNode: SKSpriteNode, CustomNodeEvents
             size: CGSize(width: 30, height: 30))
         self.position = (position - center).normalized() * 310 + center
         self.zRotation = (position - center).angle
+        let fire = SKEmitterNode(fileNamed: "fire")
+        fire!.zPosition = -1
+        self.addChild(fire!)
         
         //Physics
         physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 40, height: 20))

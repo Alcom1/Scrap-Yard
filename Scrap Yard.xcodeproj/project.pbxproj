@@ -29,6 +29,8 @@
 		6790BF921CCF030D002226A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6790BF911CCF030D002226A9 /* Assets.xcassets */; };
 		6790BF9A1CCF0AEE002226A9 /* m_fury.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6790BF981CCF0AEE002226A9 /* m_fury.wav */; };
 		6790BF9B1CCF0AEE002226A9 /* hit_1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6790BF991CCF0AEE002226A9 /* hit_1.wav */; };
+		67AA1A8C1CD5884B00DB5AE7 /* fire.sks in Resources */ = {isa = PBXBuildFile; fileRef = 67AA1A8B1CD5884B00DB5AE7 /* fire.sks */; };
+		67AA1A8E1CD588BE00DB5AE7 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 67AA1A8D1CD588BE00DB5AE7 /* spark.png */; };
 		67BA2D0B1CC84175006345E4 /* RotateNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67BA2D0A1CC84175006345E4 /* RotateNode.swift */; };
 		67D990811CCFA57D006B6D72 /* Splash.sks in Resources */ = {isa = PBXBuildFile; fileRef = 67D990801CCFA57D006B6D72 /* Splash.sks */; };
 		67D990871CCFACA9006B6D72 /* renegado.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 67D990861CCFAC5F006B6D72 /* renegado.ttf */; };
@@ -59,6 +61,8 @@
 		6790BF911CCF030D002226A9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6790BF981CCF0AEE002226A9 /* m_fury.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = m_fury.wav; sourceTree = "<group>"; };
 		6790BF991CCF0AEE002226A9 /* hit_1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hit_1.wav; sourceTree = "<group>"; };
+		67AA1A8B1CD5884B00DB5AE7 /* fire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = fire.sks; sourceTree = "<group>"; };
+		67AA1A8D1CD588BE00DB5AE7 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		67BA2D0A1CC84175006345E4 /* RotateNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotateNode.swift; sourceTree = "<group>"; };
 		67D990801CCFA57D006B6D72 /* Splash.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Splash.sks; sourceTree = "<group>"; };
 		67D990861CCFAC5F006B6D72 /* renegado.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = renegado.ttf; sourceTree = "<group>"; };
@@ -94,6 +98,7 @@
 		6712F84D1CBC5A0200A1158F /* Scrap Yard */ = {
 			isa = PBXGroup;
 			children = (
+				67AA1A8A1CD5883700DB5AE7 /* Effects */,
 				67D990821CCFA62B006B6D72 /* Fonts */,
 				6790BF971CCF0AAA002226A9 /* Sounds */,
 				6712F8651CBC5DE700A1158F /* Levels */,
@@ -146,6 +151,15 @@
 				6790BF991CCF0AEE002226A9 /* hit_1.wav */,
 			);
 			name = Sounds;
+			sourceTree = "<group>";
+		};
+		67AA1A8A1CD5883700DB5AE7 /* Effects */ = {
+			isa = PBXGroup;
+			children = (
+				67AA1A8B1CD5884B00DB5AE7 /* fire.sks */,
+				67AA1A8D1CD588BE00DB5AE7 /* spark.png */,
+			);
+			name = Effects;
 			sourceTree = "<group>";
 		};
 		67D990821CCFA62B006B6D72 /* Fonts */ = {
@@ -224,9 +238,11 @@
 				6712F8511CBC5A0200A1158F /* Level_1.sks in Resources */,
 				6712F85D1CBC5A0200A1158F /* LaunchScreen.storyboard in Resources */,
 				6790BF9A1CCF0AEE002226A9 /* m_fury.wav in Resources */,
+				67AA1A8E1CD588BE00DB5AE7 /* spark.png in Resources */,
 				6790BF921CCF030D002226A9 /* Assets.xcassets in Resources */,
 				6714269E1CCF186900D3B7EE /* Victory.sks in Resources */,
 				6712F8581CBC5A0200A1158F /* Main.storyboard in Resources */,
+				67AA1A8C1CD5884B00DB5AE7 /* fire.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
