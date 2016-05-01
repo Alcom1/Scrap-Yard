@@ -68,16 +68,6 @@ class HomeScene: SKScene, SKPhysicsContactDelegate
             }
         })
         
-        //Set description alphas
-        if let customNode = childNodeWithName("des_1") as? SKLabelNode
-        {
-            customNode.alpha = 0.0
-        }
-        if let customNode = childNodeWithName("des_2") as? SKLabelNode
-        {
-            customNode.alpha = 0.0
-        }
-        
         //DMTS all children in scene
         enumerateChildNodesWithName( "//*", usingBlock:
         { node, _ in
@@ -89,6 +79,16 @@ class HomeScene: SKScene, SKPhysicsContactDelegate
         
         //Set the label of the current control system
         setControlLabel()
+        
+        //Set starting description alphas
+        if let customNode = childNodeWithName("des_1") as? SKLabelNode
+        {
+            customNode.alpha = 0.0
+        }
+        if let customNode = childNodeWithName("des_2") as? SKLabelNode
+        {
+            customNode.alpha = 0.0
+        }
     }
     
     //Touches began
@@ -214,10 +214,31 @@ class HomeScene: SKScene, SKPhysicsContactDelegate
             {
                 customNode.text = self.releaseStop ? "Release-Stop" : "Continous"
                 self.circleIndic.hidden = self.releaseStop
-                NSUserDefaults.standardUserDefaults().setBool(self.releaseStop, forKey: "option")
-                NSUserDefaults.standardUserDefaults().synchronize()
             }
         })
+        
+        //Save option
+        NSUserDefaults.standardUserDefaults().setBool(self.releaseStop, forKey: "option")
+        NSUserDefaults.standardUserDefaults().synchronize()
+        
+        let wait = SKAction.waitForDuration(4.0)
+        let fadeOut = SKAction.fadeAlphaTo(0, duration: 0.75)
+        let action = SKAction.sequence([wait, fadeOut])
+        
+        //Option description
+        if let customNode = childNodeWithName("des_1") as? SKLabelNode
+        {
+            customNode.text = self.releaseStop ? "Player will stop when" : "Player will NOT stop when"
+            customNode.removeAllActions()
+            customNode.alpha = 1
+            customNode.runAction(action)
+        }
+        if let customNode = childNodeWithName("des_2") as? SKLabelNode
+        {
+            customNode.removeAllActions()
+            customNode.alpha = 1
+            customNode.runAction(action)
+        }
     }
     
     //Start a new game
