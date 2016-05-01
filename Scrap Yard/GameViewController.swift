@@ -52,7 +52,7 @@ class GameViewController: UIViewController {
     //Load a level
     func loadGameScene(level: Int, releaseStop: Bool, win: Bool)
     {
-        if(level > 0)
+        if(level > levelCount)
         {
             loadVictScene(releaseStop)
             return
