@@ -44,21 +44,17 @@ class VictScene: SKScene, SKPhysicsContactDelegate
         bg.size = CGSize(width: 768, height: 1024)
         addChild(bg)
         
-        //Splash screen font
-        enumerateChildNodesWithName( "Splash", usingBlock:
-        { node, _ in
-            if let customNode = node as? SKLabelNode
-            {
-                customNode.fontName = "regnegado"
-            }
-        })
-        
-        //DMTS all children in scene
+        //DMTS all children in scene and set fonts
         enumerateChildNodesWithName( "//*", usingBlock:
         { node, _ in
             if let customNode = node as? CustomNodeEvents
             {
                 customNode.didMoveToScene()
+            }
+            
+            if let customNode = node as? SKLabelNode
+            {
+                customNode.fontName = "Renegado"
             }
         })
     }

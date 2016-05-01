@@ -59,6 +59,25 @@ class HomeScene: SKScene, SKPhysicsContactDelegate
         bg.size = CGSize(width: 768, height: 1024)
         addChild(bg)
         
+        //Set fonts
+        enumerateChildNodesWithName( "Label", usingBlock:
+        { node, _ in
+            if let customNode = node as? SKLabelNode
+            {
+                customNode.fontName = "Renegado"
+            }
+        })
+        
+        //Set description alphas
+        if let customNode = childNodeWithName("des_1") as? SKLabelNode
+        {
+            customNode.alpha = 0.0
+        }
+        if let customNode = childNodeWithName("des_2") as? SKLabelNode
+        {
+            customNode.alpha = 0.0
+        }
+        
         //DMTS all children in scene
         enumerateChildNodesWithName( "//*", usingBlock:
         { node, _ in
