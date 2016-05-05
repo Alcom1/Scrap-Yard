@@ -71,7 +71,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     height: 45.0)))
         rectTime.name = "rectTime"
         rectTime.zPosition = -5
-        rectTime.position = CGPoint(x : 0, y : 951)
+        rectTime.position = CGPoint(x : -216, y : 951)
         rectTime.fillColor = SKColor.init(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.75)
         rectTime.strokeColor = SKColor.clearColor()
         addChild(rectTime)
@@ -207,23 +207,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         //fireRate update
         fireRateCounter -= dt
         
-        //Victory after 20s
-        if(totalTime > 20.0)
+        if(totalTime > 1)
         {
-            win()
-        }
-        
-        if(!end)
-        {
-            //fade rings
-            enumerateChildNodesWithName( "ring", usingBlock:
-            { node, _ in
-                node.alpha = self.totalTime / 26.7
-            })
+            //Victory after 20s
+            if(totalTime - 1 > 20.0)
+            {
+                win()
+            }
             
-            //resize time bar
-            rectTime.xScale = (20 - totalTime) / 20
-            rectTime.position.x = 384 - 600 * (20 - totalTime) / 20
+            if(!end)
+            {
+                //fade rings
+                enumerateChildNodesWithName( "ring", usingBlock:
+                { node, _ in
+                    node.alpha = (self.totalTime - 1) / 26.7
+                })
+                
+                //resize time bar
+                rectTime.xScale = (21 - totalTime) / 20
+                rectTime.position.x = 384 - 600 * (21 - totalTime) / 20
+            }
         }
         
         //Update all objects
