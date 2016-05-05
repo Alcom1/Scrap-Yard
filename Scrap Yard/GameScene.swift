@@ -17,6 +17,7 @@ protocol CustomNodeEvents
 protocol EscapeEvents
 {
     func isOut() -> Bool
+    func hasEscaped() -> Bool
     func boost()
 }
 
@@ -34,7 +35,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     var fireRate = CGFloat(0.2)         //Fire rate
     var fireRateCounter = CGFloat(0.0)  //Fire rate counter
-    var tutorialWait = false            //If waiting in tutorial (Unusued)
+    
+    var losesCur = 0
+    var losesMax = 0
+    
     var end = false                     //If level has ended
     var releaseStop = true              //If the player stops moving when touch ends
     var pauseFix = false                //Hax bool to prevent massive jump after unpausing.
@@ -89,10 +93,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             ring.zPosition = -2
             ring.alpha = 0.0
             addChild(ring)
-            if(currentLevel != 1)
-            {
-                ring.runAction(SKAction.fadeAlphaTo(0.75, duration: 20.0))
-            }
+            //ring.runAction(SKAction.fadeAlphaTo(0.75, duration: 20.0))    //This breaks subsequent actions
         }
         
         //Victory ring for victorious victory
@@ -120,6 +121,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         })
         
         setContainmentLabel("Containment: In Progress", color: SKColor(red: 1.0, green: 1.0, blue: 0.0, alpha: 1.0))
+        
+        //Max number of allowed loses
+        losesMax = levelLoses[currentLevel - 1]
     }
     
     //Touches began
@@ -157,26 +161,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             addProjectile(player.position)
         }
         
-        //End tutoral wait
-        if(currentLevel == 1)
-        {
-            if(tutorialWait)
-            {
-                enumerateChildNodesWithName( "ring", usingBlock:
-                { node, _ in
-                    node.runAction(SKAction.fadeAlphaTo(0.75, duration: 20.0))
-                })
-                tutorialWait = false
-                enumerateChildNodesWithName( "escaper", usingBlock:
-                { node, _ in
-                    if let customNode = node as? EscapeNode
-                    {
-                        customNode.active = true
-                    }
-                })
-            }
-        }
-        
         if(releaseStop)
         {
             //Hide circle and stop player
@@ -205,25 +189,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             dt = 0
         }
         lastUpdateTime = currentTime
-        
-        //Don't update totalTime if waiting on tutorial
-        if(!tutorialWait && !end)
-        {
-            totalTime += dt
-        }
+        totalTime += dt
         
         //fireRate update
         fireRateCounter -= dt
         
         //Victory after 20s
-        if(totalTime > 20.0 && !end)
+        if(totalTime > 20.0)
         {
             win()
         }
         
-        //resize time bar
-        rectTime.xScale = (20 - totalTime) / 20
-        rectTime.position.x = 384 - 600 * (20 - totalTime) / 20
+        if(!end)
+        {
+            enumerateChildNodesWithName( "ring", usingBlock:
+            { node, _ in
+                node.alpha = self.totalTime / 26.7
+            })
+            
+            //resize time bar
+            rectTime.xScale = (20 - totalTime) / 20
+            rectTime.position.x = 384 - 600 * (20 - totalTime) / 20
+        }
         
         //Update all objects
         enumerateChildNodesWithName( "//*", usingBlock:
@@ -239,9 +226,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         { node, _ in
             if let customNode = node as? EscapeEvents
             {
-                if(customNode.isOut())
+                if(customNode.isOut() && !customNode.hasEscaped())
                 {
-                    self.lose()
+                    customNode.boost()
+                    self.losesCur++
+                    if(self.losesCur >= self.losesMax)
+                    {
+                        self.lose()
+                    }
                 }
             }
         })
@@ -285,6 +277,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     //Lose
     func lose()
     {
+        if(end)
+        {
+            return
+        }
+                
+        print("LOSE!: \(losesCur)")
+        
         end = true
         rectTime.fillColor = SKColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.75)  //Color time bar red
         setContainmentLabel("Containment: Failed!", color: SKColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0))
@@ -322,6 +321,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     //Win
     func win()
     {
+        if(end)
+        {
+            return
+        }
+        
+        print("WIN!: \(3 - losesCur)")
+        
         currentLevel++
         
         end = true

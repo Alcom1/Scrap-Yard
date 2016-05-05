@@ -16,7 +16,7 @@ class EscapeNode: SKSpriteNode, CustomNodeEvents, EscapeEvents
         
         //Masks
         physicsBody!.categoryBitMask = PhysicsCategory.Junk
-        physicsBody!.collisionBitMask = PhysicsCategory.Junk | PhysicsCategory.Edge | PhysicsCategory.Proj
+        physicsBody!.collisionBitMask = PhysicsCategory.Junk | PhysicsCategory.Proj
     }
     
     //Update
@@ -44,6 +44,12 @@ class EscapeNode: SKSpriteNode, CustomNodeEvents, EscapeEvents
     func isOut() -> Bool
     {
         return (position - center).length() > 345 - size.width / 2
+    }
+    
+    //True if has escaped
+    func hasEscaped() -> Bool
+    {
+        return escape
     }
     
     //Set boost for super speedy escape

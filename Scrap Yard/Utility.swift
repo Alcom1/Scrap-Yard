@@ -152,6 +152,8 @@ let center = CGPoint(x: 384, y: 512)
 
 let levelCount = 4
 
+let levelLoses = [1, 2, 3, 3]
+
 func shortestAngleBetween(
     angle1: CGFloat,
     angle2: CGFloat) -> CGFloat
