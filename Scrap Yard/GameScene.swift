@@ -26,6 +26,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var gameManager:GameViewController?
     var currentLevel: Int = 0                   //Current level
     var player = PlayerNode()                   //Player
+    var circles = [
+        SKShapeNode(circleOfRadius: 25),
+        SKShapeNode(circleOfRadius: 25),
+        SKShapeNode(circleOfRadius: 25)]
     var lastUpdateTime: NSTimeInterval = 0      //
     var dt: CGFloat = 0                         //delta time
     var totalTime = CGFloat(0)                  //Total time that has passed
@@ -74,11 +78,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         //Circle indicator
         circleIndic = SKShapeNode(circleOfRadius: 25.0)
-        circleIndic.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame) - 500)
+        circleIndic.position = CGPoint(x: 384, y: 512)
         circleIndic.fillColor = SKColor.init(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
         circleIndic.strokeColor = SKColor.clearColor()
         circleIndic.hidden = true
         addChild(circleIndic)
+        
+        //Yellow circles
+        for (var i = 0; i < 3; i++)
+        {
+            circles[i].position = CGPoint(x: 725, y: 150 - i * 55)
+            circles[i].fillColor = SKColor.init(red: 1.0, green: 1.0, blue: 0.0, alpha: 0.9)
+            circles[i].strokeColor = SKColor.clearColor()
+            addChild(circles[i])
+        }
         
         //Backround ring particle effect
         for(var i = CGFloat(-1); i < 2; i += 2)
@@ -202,6 +215,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         if(!end)
         {
+            //fade rings
             enumerateChildNodesWithName( "ring", usingBlock:
             { node, _ in
                 node.alpha = self.totalTime / 26.7
@@ -229,6 +243,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 if(customNode.isOut() && !customNode.hasEscaped())
                 {
                     customNode.boost()
+                    self.circles[self.losesCur].hidden = true
                     self.losesCur++
                     if(self.losesCur >= self.losesMax)
                     {
@@ -281,10 +296,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         {
             return
         }
-                
-        print("LOSE!: \(losesCur)")
-        
         end = true
+        
+        //No stars display
+        for (var i = 0; i < 3; i++)
+        {
+            circles[i].hidden = true
+        }
+        
         rectTime.fillColor = SKColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.75)  //Color time bar red
         setContainmentLabel("Containment: Failed!", color: SKColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0))
         
@@ -325,12 +344,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         {
             return
         }
+        end = true
         
-        print("WIN!: \(3 - losesCur)")
+        //Save stars
+        NSUserDefaults.standardUserDefaults().setInteger(3 - self.losesCur, forKey: "level\(currentLevel)_stars")
+        NSUserDefaults.standardUserDefaults().synchronize()
         
         currentLevel++
         
-        end = true
         setContainmentLabel("Containment: Sucessful!", color: SKColor(red: 0.4, green: 1.0, blue: 0.4, alpha: 1.0))
         
         //Wait and reset level
