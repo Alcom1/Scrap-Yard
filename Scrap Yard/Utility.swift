@@ -152,7 +152,7 @@ let center = CGPoint(x: 384, y: 512)
 
 let levelCount = 4
 
-let levelLoses = [1, 2, 3, 3]
+let levelCurve = [3, 2, 1, 1]
 
 func shortestAngleBetween(
     angle1: CGFloat,

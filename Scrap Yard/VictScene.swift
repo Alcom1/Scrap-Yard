@@ -51,11 +51,6 @@ class VictScene: SKScene, SKPhysicsContactDelegate
             {
                 customNode.didMoveToScene()
             }
-            
-            if let customNode = node as? SKLabelNode
-            {
-                customNode.fontName = "Renegado"
-            }
         })
     }
     

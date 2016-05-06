@@ -41,7 +41,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var fireRateCounter = CGFloat(0.0)  //Fire rate counter
     
     var losesCur = 0
-    var losesMax = 0
+    var losesMax = 3
     
     var end = false                     //If level has ended
     var releaseStop = true              //If the player stops moving when touch ends
@@ -88,6 +88,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         for (var i = 0; i < 3; i++)
         {
             circles[i].position = CGPoint(x: 725, y: 150 - i * 55)
+            circles[i].zPosition = 20
             circles[i].fillColor = SKColor.init(red: 1.0, green: 1.0, blue: 0.0, alpha: 0.9)
             circles[i].strokeColor = SKColor.clearColor()
             addChild(circles[i])
@@ -134,9 +135,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         })
         
         setContainmentLabel("Containment: In Progress", color: SKColor(red: 1.0, green: 1.0, blue: 0.0, alpha: 1.0))
-        
-        //Max number of allowed loses
-        losesMax = levelLoses[currentLevel - 1]
     }
     
     //Touches began
@@ -246,8 +244,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 if(customNode.isOut() && !customNode.hasEscaped())
                 {
                     customNode.boost()
-                    self.circles[self.losesCur].hidden = true
-                    self.losesCur++
+                    self.losesCur += levelCurve[self.currentLevel - 1]
+                    self.setCirclesVisibility()
                     if(self.losesCur >= self.losesMax)
                     {
                         self.lose()
@@ -267,6 +265,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 }
             }
         })
+    }
+    
+    //Set the visibility of the circles
+    func setCirclesVisibility()
+    {
+        for(var i = 0; i < 3; i++)
+        {
+            circles[i].hidden = i < losesCur
+        }
     }
     
     //Triggers when a collision occurs
@@ -300,12 +307,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             return
         }
         end = true
-        
-        //No stars display
-        for (var i = 0; i < 3; i++)
-        {
-            circles[i].hidden = true
-        }
         
         rectTime.fillColor = SKColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.75)  //Color time bar red
         setContainmentLabel("Containment: Failed!", color: SKColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0))
@@ -349,6 +350,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         }
         end = true
         
+        let stars = losesMax - losesCur
+        
         //Save stars
         NSUserDefaults.standardUserDefaults().setInteger(3 - self.losesCur, forKey: "level\(currentLevel)_stars")
         NSUserDefaults.standardUserDefaults().synchronize()
@@ -362,6 +365,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         let newGame = SKAction.runBlock({self.newGame(true)})
         runAction(SKAction.sequence([wait, newGame]))
         
+        //Statis ring fade in
         enumerateChildNodesWithName( "ring3", usingBlock:
         { node, _ in
             node.runAction(SKAction.fadeAlphaTo(1.0, duration: 0.05))
@@ -379,6 +383,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 customNode.physicsBody!.angularVelocity = 0
             }
         })
+        
+        //Stars display
+        let split = 150
+        for(var i = 0; i < 3; i++)
+        {
+            let moveX = -341 + split * i - (5 - stars) * split / 2
+            let moveY = 362 + i * 55
+            let shift = SKAction.moveBy(
+                CGVector(
+                    dx: moveX,
+                    dy: moveY),
+                duration: 1.0)
+            circles[i].runAction(shift)
+        }
     }
     
     //Start a new game
