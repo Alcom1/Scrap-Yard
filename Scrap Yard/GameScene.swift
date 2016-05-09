@@ -34,8 +34,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var dt: CGFloat = 0                         //delta time
     var totalTime = CGFloat(0)                  //Total time that has passed
     
-    var rectTime = SKShapeNode()        //Bar indicating remaining time
-    var circleIndic = SKShapeNode()     //Indicator of current touch location
+    var rectTime = SKShapeNode()            //Bar indicating remaining time
+    var circleIndic = SKShapeNode()         //Indicator of current touch location
+    var victoryBG1 = SKShapeNode()          //Background for victory screen
+    var victoryBG2 = SKShapeNode()          //Lower background for victory screen
+    var victoryText = SKLabelNode()
     
     var fireRate = CGFloat(0.2)         //Fire rate
     var fireRateCounter = CGFloat(0.0)  //Fire rate counter
@@ -84,12 +87,41 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         circleIndic.hidden = true
         addChild(circleIndic)
         
+        //Victory background
+        victoryBG1 = SKShapeNode(rectOfSize: CGSize(width: 400, height: 150), cornerRadius: 40)
+        victoryBG1.position = CGPoint(x: 384, y: 512)
+        victoryBG1.zPosition = 15
+        victoryBG1.fillColor = SKColor.init(red: 0.4, green: 0.4, blue: 0.4, alpha: 1.0)
+        victoryBG1.alpha = 0
+        victoryBG1.strokeColor = SKColor.clearColor()
+        addChild(victoryBG1)
+        
+        //Victory background 2
+        victoryBG2 = SKShapeNode(rectOfSize: CGSize(width: 580, height: 100), cornerRadius: 40)
+        victoryBG2.position = CGPoint(x: 384, y: 410)
+        victoryBG2.zPosition = 16
+        victoryBG2.fillColor = SKColor.init(red: 0.4, green: 0.4, blue: 0.4, alpha: 1.0)
+        victoryBG2.alpha = 0
+        victoryBG2.strokeColor = SKColor.clearColor()
+        addChild(victoryBG2)
+        
+        //Top kek
+        victoryText = SKLabelNode(text: "Victory!")
+        victoryText.position = CGPoint(x: 384, y: 382)
+        victoryText.zPosition = 17
+        victoryText.fontName = "Renegado"
+        victoryText.fontSize = 96
+        victoryText.fontColor = SKColor.init(red: 0.8, green: 0.8, blue: 0.8, alpha: 1.0)
+        victoryText.alpha = 0
+        addChild(victoryText)
+        
+        
         //Yellow circles
         for (var i = 0; i < 3; i++)
         {
             circles[i].position = CGPoint(x: 725, y: 150 - i * 55)
             circles[i].zPosition = 20
-            circles[i].fillColor = SKColor.init(red: 1.0, green: 1.0, blue: 0.0, alpha: 0.9)
+            circles[i].fillColor = SKColor.init(red: 1.0, green: 1.0, blue: 0.0, alpha: 1.0)
             circles[i].strokeColor = SKColor.clearColor()
             addChild(circles[i])
         }
@@ -107,7 +139,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             ring.zPosition = -2
             ring.alpha = 0.0
             addChild(ring)
-            //ring.runAction(SKAction.fadeAlphaTo(0.75, duration: 20.0))    //This breaks subsequent actions
         }
         
         //Victory ring for victorious victory
@@ -208,7 +239,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         if(totalTime > 1)
         {
             //Victory after 20s
-            if(totalTime - 1 > 20.0)
+            if(totalTime - 1 > 2.0)
             {
                 win()
             }
@@ -224,6 +255,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 //resize time bar
                 rectTime.xScale = (21 - totalTime) / 20
                 rectTime.position.x = 384 - 600 * (21 - totalTime) / 20
+            }
+            else
+            {
+                if(circles[0].xScale < 1.9)
+                {
+                    for (var i = 0; i < 3; i++)
+                    {
+                        circles[i].xScale += circles[i].xScale * 0.85 * dt
+                        circles[i].yScale += circles[i].yScale * 0.85 * dt
+                    }
+                }
             }
         }
         
@@ -353,9 +395,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         let stars = losesMax - losesCur
         
         //Save stars
-        NSUserDefaults.standardUserDefaults().setInteger(3 - self.losesCur, forKey: "level\(currentLevel)_stars")
-        NSUserDefaults.standardUserDefaults().synchronize()
+        let starsSaved = NSUserDefaults.standardUserDefaults().integerForKey("level\(currentLevel)_stars")
         
+        if(stars > starsSaved)
+        {
+            NSUserDefaults.standardUserDefaults().setInteger(stars, forKey: "level\(currentLevel)_stars")
+            NSUserDefaults.standardUserDefaults().synchronize()
+        }
+            
         currentLevel++
         
         setContainmentLabel("Containment: Sucessful!", color: SKColor(red: 0.4, green: 1.0, blue: 0.4, alpha: 1.0))
@@ -371,6 +418,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             node.runAction(SKAction.fadeAlphaTo(1.0, duration: 0.05))
         })
         
+        let fadeIn = SKAction.fadeAlphaTo(1.0, duration: 0.75)
+        victoryBG1.runAction(fadeIn)
+        victoryBG2.runAction(fadeIn)
+        victoryText.runAction(fadeIn)
+        if(stars != 1)
+        {
+            victoryText.text = "\(stars) STARS!"
+        }
+        else
+        {
+            victoryText.text = "\(stars) STAR!"
+        }
+            
         //Stop escapers!
         enumerateChildNodesWithName( "escaper", usingBlock:
         { node, _ in
@@ -385,7 +445,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         })
         
         //Stars display
-        let split = 150
+        let split = 125
         for(var i = 0; i < 3; i++)
         {
             let moveX = -341 + split * i - (5 - stars) * split / 2
