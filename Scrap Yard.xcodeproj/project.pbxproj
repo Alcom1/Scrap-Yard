@@ -22,7 +22,9 @@
 		671426A01CCF191300D3B7EE /* VictScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6714269F1CCF191300D3B7EE /* VictScene.swift */; };
 		6737CC681CBEFBC400E192CC /* Level_2.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6737CC671CBEFBC400E192CC /* Level_2.sks */; };
 		6737CC6A1CBF0A5600E192CC /* Level_3.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6737CC691CBF0A5600E192CC /* Level_3.sks */; };
-		6737CC6C1CBF1C8A00E192CC /* Level_4.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6737CC6B1CBF1C8A00E192CC /* Level_4.sks */; };
+		6737CC6C1CBF1C8A00E192CC /* Level_5.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6737CC6B1CBF1C8A00E192CC /* Level_5.sks */; };
+		6748AB651CE11C0200D3B92C /* Level_4.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6748AB641CE11C0200D3B92C /* Level_4.sks */; };
+		6748AB6D1CE1298E00D3B92C /* Level_6.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6748AB6C1CE1298E00D3B92C /* Level_6.sks */; };
 		6790BF8C1CCEB5A9002226A9 /* HomeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6790BF8B1CCEB5A8002226A9 /* HomeScene.swift */; };
 		6790BF8E1CCEB7F7002226A9 /* Home.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6790BF8D1CCEB7F7002226A9 /* Home.sks */; };
 		6790BF901CCEBE08002226A9 /* ButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6790BF8F1CCEBE08002226A9 /* ButtonNode.swift */; };
@@ -54,7 +56,9 @@
 		6714269F1CCF191300D3B7EE /* VictScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VictScene.swift; sourceTree = "<group>"; };
 		6737CC671CBEFBC400E192CC /* Level_2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level_2.sks; sourceTree = "<group>"; };
 		6737CC691CBF0A5600E192CC /* Level_3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level_3.sks; sourceTree = "<group>"; };
-		6737CC6B1CBF1C8A00E192CC /* Level_4.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level_4.sks; sourceTree = "<group>"; };
+		6737CC6B1CBF1C8A00E192CC /* Level_5.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level_5.sks; sourceTree = "<group>"; };
+		6748AB641CE11C0200D3B92C /* Level_4.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level_4.sks; sourceTree = "<group>"; };
+		6748AB6C1CE1298E00D3B92C /* Level_6.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level_6.sks; sourceTree = "<group>"; };
 		6790BF8B1CCEB5A8002226A9 /* HomeScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeScene.swift; sourceTree = "<group>"; };
 		6790BF8D1CCEB7F7002226A9 /* Home.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Home.sks; sourceTree = "<group>"; };
 		6790BF8F1CCEBE08002226A9 /* ButtonNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonNode.swift; sourceTree = "<group>"; };
@@ -140,7 +144,9 @@
 				6712F8501CBC5A0200A1158F /* Level_1.sks */,
 				6737CC671CBEFBC400E192CC /* Level_2.sks */,
 				6737CC691CBF0A5600E192CC /* Level_3.sks */,
-				6737CC6B1CBF1C8A00E192CC /* Level_4.sks */,
+				6748AB641CE11C0200D3B92C /* Level_4.sks */,
+				6737CC6B1CBF1C8A00E192CC /* Level_5.sks */,
+				6748AB6C1CE1298E00D3B92C /* Level_6.sks */,
 			);
 			name = Levels;
 			sourceTree = "<group>";
@@ -223,10 +229,12 @@
 			files = (
 				67AA1A981CD5944D00DB5AE7 /* renegado.ttf in Resources */,
 				6790BF8E1CCEB7F7002226A9 /* Home.sks in Resources */,
-				6737CC6C1CBF1C8A00E192CC /* Level_4.sks in Resources */,
+				6737CC6C1CBF1C8A00E192CC /* Level_5.sks in Resources */,
+				6748AB6D1CE1298E00D3B92C /* Level_6.sks in Resources */,
 				6790BF9B1CCF0AEE002226A9 /* hit_1.wav in Resources */,
 				6737CC6A1CBF0A5600E192CC /* Level_3.sks in Resources */,
 				67D990811CCFA57D006B6D72 /* Splash.sks in Resources */,
+				6748AB651CE11C0200D3B92C /* Level_4.sks in Resources */,
 				6737CC681CBEFBC400E192CC /* Level_2.sks in Resources */,
 				6712F8511CBC5A0200A1158F /* Level_1.sks in Resources */,
 				6712F85D1CBC5A0200A1158F /* LaunchScreen.storyboard in Resources */,
