@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		670556611CBD9F2900FD5BF3 /* PlayerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670556601CBD9F2900FD5BF3 /* PlayerNode.swift */; };
+		670B39521CE21E210025742F /* LevelSelect.sks in Resources */ = {isa = PBXBuildFile; fileRef = 670B39511CE21E210025742F /* LevelSelect.sks */; };
 		6712F84F1CBC5A0200A1158F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6712F84E1CBC5A0200A1158F /* AppDelegate.swift */; };
 		6712F8511CBC5A0200A1158F /* Level_1.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6712F8501CBC5A0200A1158F /* Level_1.sks */; };
 		6712F8531CBC5A0200A1158F /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6712F8521CBC5A0200A1158F /* GameScene.swift */; };
@@ -40,6 +41,7 @@
 
 /* Begin PBXFileReference section */
 		670556601CBD9F2900FD5BF3 /* PlayerNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerNode.swift; sourceTree = "<group>"; };
+		670B39511CE21E210025742F /* LevelSelect.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = LevelSelect.sks; sourceTree = "<group>"; };
 		6712F84B1CBC5A0200A1158F /* Scrap Yard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Scrap Yard.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6712F84E1CBC5A0200A1158F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6712F8501CBC5A0200A1158F /* Level_1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level_1.sks; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				6790BF8D1CCEB7F7002226A9 /* Home.sks */,
+				670B39511CE21E210025742F /* LevelSelect.sks */,
 				6714269D1CCF186900D3B7EE /* Victory.sks */,
 				67D990801CCFA57D006B6D72 /* Splash.sks */,
 				6712F8501CBC5A0200A1158F /* Level_1.sks */,
@@ -235,6 +238,7 @@
 				6737CC6A1CBF0A5600E192CC /* Level_3.sks in Resources */,
 				67D990811CCFA57D006B6D72 /* Splash.sks in Resources */,
 				6748AB651CE11C0200D3B92C /* Level_4.sks in Resources */,
+				670B39521CE21E210025742F /* LevelSelect.sks in Resources */,
 				6737CC681CBEFBC400E192CC /* Level_2.sks in Resources */,
 				6712F8511CBC5A0200A1158F /* Level_1.sks in Resources */,
 				6712F85D1CBC5A0200A1158F /* LaunchScreen.storyboard in Resources */,

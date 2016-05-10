@@ -196,10 +196,11 @@ class HomeScene: SKScene, SKPhysicsContactDelegate
                 {
                     newGame()
                 }
-                else if (bodyA.node as! ButtonNode).name == "control"
+                else if (bodyA.node as! ButtonNode).name == "level"
                 {
-                    releaseStop = !releaseStop
-                    setControlLabel()
+                    gameManager?.loadLevelSelect(releaseStop)
+                    //releaseStop = !releaseStop
+                    //setControlLabel()
                 }
             }
         }
@@ -246,6 +247,8 @@ class HomeScene: SKScene, SKPhysicsContactDelegate
     {
         gameManager!.loadGameScene(1, releaseStop: releaseStop, win: true)
     }
+    
+   
     
     //Add a projectile to the scene
     func addProjectile(position: CGPoint)
