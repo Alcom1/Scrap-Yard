@@ -239,7 +239,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         if(totalTime > 1)
         {
             //Victory after 20s
-            if(totalTime - 1 > 21.0)
+            if(totalTime - 1 > 20.0)
             {
                 win()
             }
