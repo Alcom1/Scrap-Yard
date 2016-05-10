@@ -36,6 +36,7 @@
 		67AA1A8E1CD588BE00DB5AE7 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 67AA1A8D1CD588BE00DB5AE7 /* spark.png */; };
 		67AA1A981CD5944D00DB5AE7 /* renegado.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 67AA1A971CD5943D00DB5AE7 /* renegado.ttf */; };
 		67BA2D0B1CC84175006345E4 /* RotateNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67BA2D0A1CC84175006345E4 /* RotateNode.swift */; };
+		67BBD1951CE2213400214033 /* FollowNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67BBD1941CE2213300214033 /* FollowNode.swift */; };
 		67D990811CCFA57D006B6D72 /* Splash.sks in Resources */ = {isa = PBXBuildFile; fileRef = 67D990801CCFA57D006B6D72 /* Splash.sks */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +72,7 @@
 		67AA1A8D1CD588BE00DB5AE7 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		67AA1A971CD5943D00DB5AE7 /* renegado.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = renegado.ttf; sourceTree = "<group>"; };
 		67BA2D0A1CC84175006345E4 /* RotateNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotateNode.swift; sourceTree = "<group>"; };
+		67BBD1941CE2213300214033 /* FollowNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowNode.swift; sourceTree = "<group>"; };
 		67D990801CCFA57D006B6D72 /* Splash.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Splash.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -130,6 +132,7 @@
 				6712F8661CBC5E2A00A1158F /* JunkNode.swift */,
 				67BA2D0A1CC84175006345E4 /* RotateNode.swift */,
 				6712F8681CBC76D400A1158F /* EscapeNode.swift */,
+				67BBD1941CE2213300214033 /* FollowNode.swift */,
 				6790BF8F1CCEBE08002226A9 /* ButtonNode.swift */,
 				6712F86A1CBC7DE100A1158F /* ProjectileNode.swift */,
 				670556601CBD9F2900FD5BF3 /* PlayerNode.swift */,
@@ -260,6 +263,7 @@
 			files = (
 				6712F86D1CBC86A800A1158F /* Utility.swift in Sources */,
 				6712F8691CBC76D400A1158F /* EscapeNode.swift in Sources */,
+				67BBD1951CE2213400214033 /* FollowNode.swift in Sources */,
 				6790BF901CCEBE08002226A9 /* ButtonNode.swift in Sources */,
 				6712F8531CBC5A0200A1158F /* GameScene.swift in Sources */,
 				6790BF8C1CCEB5A9002226A9 /* HomeScene.swift in Sources */,
