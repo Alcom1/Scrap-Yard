@@ -21,6 +21,11 @@ protocol EscapeEvents
     func boost()
 }
 
+protocol FollowEvents
+{
+    func setTarget(pos: CGPoint)
+}
+
 class GameScene: SKScene, SKPhysicsContactDelegate
 {
     var gameManager:GameViewController?
@@ -275,6 +280,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             if let customNode = node as? CustomNodeEvents
             {
                 customNode.update(self.dt)
+            }
+        })
+        
+        //Set all follower targets
+        enumerateChildNodesWithName( "//*", usingBlock:
+        { node, _ in
+            if let customNode = node as? FollowEvents
+            {
+                customNode.setTarget(self.player.position)
             }
         })
         
