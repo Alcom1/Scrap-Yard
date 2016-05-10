@@ -4,7 +4,7 @@ import SpriteKit
 class GameViewController: UIViewController {
     var skView:SKView!
     var scene: GameScene?
-    
+    var levelSelect: Bool = false
     
     override func viewDidLoad()
     {
@@ -29,6 +29,16 @@ class GameViewController: UIViewController {
         skView.presentScene(mainScene!, transition: reveal)
     }
     
+    //Load level select screen
+    func loadLevelSelect(releasesStop: Bool)
+    {
+        let mainScene = HomeScene(fileNamed: "LevelSelect")
+        mainScene?.gameManager = self
+        mainScene?.releaseStop = releasesStop
+        let reveal = SKTransition.crossFadeWithDuration(1)
+        skView.presentScene(mainScene!, transition: reveal)
+    }
+    
     //Load the splash screen
     func loadSplashScene(releaseStop: Bool)
     {
@@ -39,7 +49,7 @@ class GameViewController: UIViewController {
         skView.presentScene(victScene!, transition: reveal)
     }
     
-    //Load the main menu
+    //Load the victory scene
     func loadVictScene(releaseStop: Bool)
     {
         let victScene = VictScene(fileNamed: "Victory")
@@ -57,8 +67,9 @@ class GameViewController: UIViewController {
             loadVictScene(releaseStop)
             return
         }
-        
+      
         scene = GameScene(fileNamed:"Level_\(level)")
+        
         scene?.currentLevel = level
         scene?.gameManager = self
         scene?.releaseStop = releaseStop
