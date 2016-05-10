@@ -13,7 +13,7 @@ class JunkNode: SKSpriteNode, CustomNodeEvents
         
         //Masks
         physicsBody!.categoryBitMask = PhysicsCategory.Junk
-        physicsBody!.collisionBitMask = PhysicsCategory.Junk | PhysicsCategory.Edge | PhysicsCategory.Proj
+        physicsBody!.collisionBitMask = PhysicsCategory.Junk | PhysicsCategory.Edge | PhysicsCategory.Proj | PhysicsCategory.Foll
     }
     
     //Update

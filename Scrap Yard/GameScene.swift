@@ -6,6 +6,7 @@ struct PhysicsCategory
     static let Edge: UInt32 = 0b1
     static let Junk: UInt32 = 0b10
     static let Proj: UInt32 = 0b100
+    static let Foll: UInt32 = 0b1000
 }
 
 protocol CustomNodeEvents
@@ -23,7 +24,7 @@ protocol EscapeEvents
 
 protocol FollowEvents
 {
-    func setTarget(pos: CGPoint)
+    func setFollowTarget(pos: CGPoint)
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate
@@ -288,7 +289,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         { node, _ in
             if let customNode = node as? FollowEvents
             {
-                customNode.setTarget(self.player.position)
+                customNode.setFollowTarget(self.player.position)
             }
         })
         

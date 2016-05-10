@@ -16,7 +16,7 @@ class EscapeNode: SKSpriteNode, CustomNodeEvents, EscapeEvents
         
         //Masks
         physicsBody!.categoryBitMask = PhysicsCategory.Junk
-        physicsBody!.collisionBitMask = PhysicsCategory.Junk | PhysicsCategory.Proj
+        physicsBody!.collisionBitMask = PhysicsCategory.Junk | PhysicsCategory.Proj | PhysicsCategory.Foll
     }
     
     //Update

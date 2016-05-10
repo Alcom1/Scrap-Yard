@@ -244,7 +244,7 @@ class HomeScene: SKScene, SKPhysicsContactDelegate
     //Start a new game
     func newGame()
     {
-        gameManager!.loadGameScene(1, releaseStop: releaseStop, win: true)
+        gameManager!.loadGameScene(4, releaseStop: releaseStop, win: true)
     }
     
     //Add a projectile to the scene

@@ -16,7 +16,7 @@ class FollowNode: SKSpriteNode, CustomNodeEvents, EscapeEvents, FollowEvents
         physicsBody!.mass = π * size.width * size.width / 160000
         
         //Masks
-        physicsBody!.categoryBitMask = PhysicsCategory.Junk
+        physicsBody!.categoryBitMask = PhysicsCategory.Foll
         physicsBody!.collisionBitMask = PhysicsCategory.Junk
     }
     
@@ -29,20 +29,25 @@ class FollowNode: SKSpriteNode, CustomNodeEvents, EscapeEvents, FollowEvents
             if(escape)
             {
                 physicsBody!.applyImpulse(
-                    ((target - position).normalized() * 1800 * physicsBody!.mass * dt).toCGVector())
+                    ((position - center).normalized() * 1800 * physicsBody!.mass * dt).toCGVector())
             }
                 
             //Normal speed
             else
             {
                 physicsBody!.applyImpulse(
-                    ((target - position).normalized() * 20 * physicsBody!.mass * dt).toCGVector())
+                    ((target - position).normalized() * 120 * physicsBody!.mass * dt).toCGVector())
+            }
+            
+            if(physicsBody!.velocity.length() > 60)
+            {
+                physicsBody!.velocity = physicsBody!.velocity.normalized() * 60
             }
         }
     }
     
     //set the target of the follow node
-    func setTarget(pos: CGPoint)
+    func setFollowTarget(pos: CGPoint)
     {
         target = pos
     }

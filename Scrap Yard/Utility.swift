@@ -105,6 +105,16 @@ func /= (inout point: CGPoint, scalar: CGFloat)
     point = point / scalar
 }
 
+func * (vector: CGVector, scalar: CGFloat) -> CGVector
+{
+    return CGVector(dx: vector.dx * scalar, dy: vector.dy * scalar)
+}
+
+func / (vector: CGVector, scalar: CGFloat) -> CGVector
+{
+    return CGVector(dx: vector.dx / scalar, dy: vector.dy / scalar)
+}
+
 #if !(arch(x86_64) || arch(arm64))
     func atan2(y: CGFloat, x: CGFloat) -> CGFloat
     {
@@ -146,13 +156,31 @@ extension CGPoint
     }
 }
 
+extension CGVector
+{
+    func length() -> CGFloat
+    {
+        return sqrt(dx*dx + dy*dy)
+    }
+    
+    func normalized() -> CGVector
+    {
+        return self / length()
+    }
+    
+    func toCGPoint() -> CGPoint
+    {
+        return CGPoint(x: dx, y: dy)
+    }
+}
+
 let π = CGFloat(M_PI)
 
 let center = CGPoint(x: 384, y: 512)
 
 let levelCount = 6
 
-let levelCurve = [3, 2, 1, 1, 1, 1]
+let levelCurve = [3, 2, 1, 2, 2, 1]
 
 func shortestAngleBetween(
     angle1: CGFloat,
