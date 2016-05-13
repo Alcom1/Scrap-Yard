@@ -12,12 +12,29 @@ import SpriteKit
 class LevelSelectScene: SKScene, SKPhysicsContactDelegate
 {
     var gameManager:GameViewController?
+    var gameS:GameScene?
     var player = PlayerNode()                   //Player
     var lastUpdateTime: NSTimeInterval = 0      //
     var dt: CGFloat = 0                         //delta time
-    
     var circleIndic = SKShapeNode()     //Indicator of current touch location
-    
+    var score = [SKSpriteNode(imageNamed: "star.png"),
+        SKSpriteNode(imageNamed: "star.png"),
+        SKSpriteNode(imageNamed: "star.png"),
+        SKSpriteNode(imageNamed: "star.png"),
+        SKSpriteNode(imageNamed: "star.png"),
+        SKSpriteNode(imageNamed: "star.png"),
+        SKSpriteNode(imageNamed: "star.png"),
+        SKSpriteNode(imageNamed: "star.png"),
+        SKSpriteNode(imageNamed: "star.png"),
+        SKSpriteNode(imageNamed: "star.png"),
+        SKSpriteNode(imageNamed: "star.png"),
+        SKSpriteNode(imageNamed: "star.png"),
+        SKSpriteNode(imageNamed: "star.png"),
+        SKSpriteNode(imageNamed: "star.png"),
+        SKSpriteNode(imageNamed: "star.png"),
+        SKSpriteNode(imageNamed: "star.png"),
+        SKSpriteNode(imageNamed: "star.png"),
+        SKSpriteNode(imageNamed: "star.png")]
     var fireRate = CGFloat(0.2)         //Fire rate
     var fireRateCounter = CGFloat(0.0)  //Fire rate counter
     var releaseStop = true              //If the player stops moving when touch ends
@@ -44,6 +61,61 @@ class LevelSelectScene: SKScene, SKPhysicsContactDelegate
         circleIndic.strokeColor = SKColor.clearColor()
         circleIndic.hidden = true
         addChild(circleIndic)
+        var num = 0
+        for (var i = 0; i < 18; i++)
+        {
+            switch(i){
+            case 0...2: // level 1
+                score[i].position = CGPoint(x: 354 + (i * 35), y: 680)
+                score[i].zPosition = 20
+                score[i].xScale = (0.5)
+                score[i].yScale = (0.5)
+                addChild(score[i])
+            case 3...5: // level 2
+                score[i].position = CGPoint(x: 590 + (num * 35) , y: 510)
+                score[i].zPosition = 20
+                score[i].xScale = (0.5)
+                score[i].yScale = (0.5)
+                addChild(score[i])
+                num += 1
+            case 6...8: // level 3
+                if(i == 6){num = 0}
+                score[i].position = CGPoint(x: 590 + (num * 35), y: 288)
+                score[i].zPosition = 20
+                score[i].xScale = (0.5)
+                score[i].yScale = (0.5)
+                addChild(score[i])
+                num += 1
+            case 9...11: // level 4
+                if(i == 9){num = 0}
+                score[i].position = CGPoint(x: 354 + (num * 35), y: 182)
+                score[i].zPosition = 20
+                score[i].xScale = (0.5)
+                score[i].yScale = (0.5)
+                addChild(score[i])
+                num += 1
+            case 12...14: // level 5
+                if(i == 12){num = 0}
+                score[i].position = CGPoint(x: 124 + (num * 35), y: 288)
+                score[i].zPosition = 20
+                score[i].xScale = (0.5)
+                score[i].yScale = (0.5)
+                addChild(score[i])
+                num += 1
+            case 15...17: // level 6
+                if(i == 15){num = 0}
+                score[i].position = CGPoint(x: 124 + (num * 35), y: 510)
+                score[i].zPosition = 20
+                score[i].xScale = (0.5)
+                score[i].yScale = (0.5)
+                addChild(score[i])
+                num += 1
+            default:
+                return
+                
+            }
+            
+        }
         
         //Backroung ring particle effect
         for(var i = CGFloat(-1); i < 2; i += 2)
@@ -182,29 +254,18 @@ class LevelSelectScene: SKScene, SKPhysicsContactDelegate
         
         enumerateChildNodesWithName("//*", usingBlock: {
             node, _ in
-            let currentLevel = node.name
-            let stars:Int? = NSUserDefaults.standardUserDefaults().integerForKey("level\(currentLevel)_stars")
-            var pos = node.position
-            pos.x -= 10
-            pos.y -= 10
-            var score = [SKSpriteNode(imageNamed: "star.png"),
-                         SKSpriteNode(imageNamed: "star.png"),
-                         SKSpriteNode(imageNamed: "star.png")]
-            
-            for (var i = 0; i < 3; i++)
+            if let customNode = node as? ButtonNode
             {
-                score[i].position = CGPoint(x: pos.x + CGFloat(i + 3), y: pos.y)
-                score[i].zPosition = 20
-                score[i].xScale = (0.1)
-                score[i].yScale = (0.1)
-                self.addChild(score[i])
-                score[i].hidden = stars < (i + 1)
+                let currentLevel = node.name
+                let stars:Int? = NSUserDefaults.standardUserDefaults().integerForKey("level\(currentLevel)_stars")
+                for(var i = 0; i < 3; i++)
+                {
+                    self.score[i].hidden = i < self.gameS?.losesCur
+                }
             }
-            
-        })
+    })
+    
     }
-    
-    
     //Triggers when a collision occurs
     func didBeginContact(contact: SKPhysicsContact)
     {
@@ -302,4 +363,3 @@ class LevelSelectScene: SKScene, SKPhysicsContactDelegate
         runAction(SKAction.playSoundFileNamed("m_fury.wav", waitForCompletion: false))
     }
 }
-
