@@ -21,8 +21,8 @@ class EscapeNode: SKSpriteNode, CustomNodeEvents, EscapeEvents
         
         //Booster
         print(size.width)
-        booster.xScale = size.width / 200;
-        booster.yScale = size.height / 200;
+        booster.xScale = size.width / 200
+        booster.yScale = size.height / 200
         addChild(booster)
     }
     

@@ -11,6 +11,13 @@ class BoostNode: SKSpriteNode
             color: UIColor(),
             size: CGSize(width: 100, height: 50))
         self.zPosition = 4
+        let fire = SKEmitterNode(fileNamed: "fire_big")
+        fire!.position = CGPoint(x: -30, y: 0)
+        fire!.xScale = 1.25
+        fire!.yScale = 1.25
+        fire!.zPosition = -1
+        fire!.zRotation -= π
+        self.addChild(fire!)
     }
 
     required init?(coder aDecoder: NSCoder)
