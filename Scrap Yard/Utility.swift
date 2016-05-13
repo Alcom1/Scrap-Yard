@@ -183,9 +183,11 @@ let π = CGFloat(M_PI)
 
 let center = CGPoint(x: 384, y: 512)
 
+//Number of levels in game
 let levelCount = 6
 
-let levelCurve = [3, 2, 1, 2, 2, 1]
+//Rate at which stars are lost when an escaper escapes for each level
+let levelCurve = [3, 2, 2, 2, 1, 1]
 
 func shortestAngleBetween(
     angle1: CGFloat,
