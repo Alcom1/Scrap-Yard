@@ -32,7 +32,7 @@ class GameViewController: UIViewController {
     //Load level select screen
     func loadLevelSelect(releasesStop: Bool)
     {
-        let mainScene = HomeScene(fileNamed: "LevelSelect")
+        let mainScene = LevelSelectScene(fileNamed: "LevelSelect")
         mainScene?.gameManager = self
         mainScene?.releaseStop = releasesStop
         let reveal = SKTransition.crossFadeWithDuration(1)

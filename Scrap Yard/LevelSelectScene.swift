@@ -1,7 +1,15 @@
+//
+//  LevelSelectScene.swift
+//  Scrap Yard
+//
+//  Created by igmstudent on 5/13/16.
+//  Copyright © 2016 igmstudent. All rights reserved.
+//
+
 import SpriteKit
 
 
-class HomeScene: SKScene, SKPhysicsContactDelegate
+class LevelSelectScene: SKScene, SKPhysicsContactDelegate
 {
     var gameManager:GameViewController?
     var player = PlayerNode()                   //Player
@@ -61,24 +69,24 @@ class HomeScene: SKScene, SKPhysicsContactDelegate
         
         //Set fonts
         enumerateChildNodesWithName( "Label", usingBlock:
-        { node, _ in
-            if let customNode = node as? SKLabelNode
-            {
-                customNode.fontName = "Renegado"
-            }
+            { node, _ in
+                if let customNode = node as? SKLabelNode
+                {
+                    customNode.fontName = "Renegado"
+                }
         })
         
         //DMTS all children in scene
         enumerateChildNodesWithName( "//*", usingBlock:
-        { node, _ in
-            if let customNode = node as? CustomNodeEvents
-            {
-                customNode.didMoveToScene()
-            }
+            { node, _ in
+                if let customNode = node as? CustomNodeEvents
+                {
+                    customNode.didMoveToScene()
+                }
         })
         
         //Set the label of the current control system
-        setControlLabel()
+        //setControlLabel()
         
         //Set starting description alphas
         if let customNode = childNodeWithName("des_1") as? SKLabelNode
@@ -133,7 +141,7 @@ class HomeScene: SKScene, SKPhysicsContactDelegate
             player.targetAngle = player.currentAngle
         }
     }
-   
+    
     //Update
     override func update(currentTime: CFTimeInterval)
     {
@@ -153,29 +161,54 @@ class HomeScene: SKScene, SKPhysicsContactDelegate
         
         //Update all objects
         enumerateChildNodesWithName( "//*", usingBlock:
-        { node, _ in
-            if let customNode = node as? CustomNodeEvents
-            {
-                customNode.update(self.dt)
-            }
+            { node, _ in
+                if let customNode = node as? CustomNodeEvents
+                {
+                    customNode.update(self.dt)
+                }
         })
         
         //Kill projectiles
         enumerateChildNodesWithName( "//*", usingBlock:
-        { node, _ in
-            if let customNode = node as? ProjectileNode
-            {
-                if(customNode.isDisabled())
+            { node, _ in
+                if let customNode = node as? ProjectileNode
                 {
-                    customNode.removeFromParent()
+                    if(customNode.isDisabled())
+                    {
+                        customNode.removeFromParent()
+                    }
                 }
+        })
+        
+        enumerateChildNodesWithName("//*", usingBlock: {
+            node, _ in
+            let currentLevel = node.name
+            let stars:Int? = NSUserDefaults.standardUserDefaults().integerForKey("level\(currentLevel)_stars")
+            var pos = node.position
+            pos.x -= 10
+            pos.y -= 10
+            var score = [SKSpriteNode(imageNamed: "star.png"),
+                         SKSpriteNode(imageNamed: "star.png"),
+                         SKSpriteNode(imageNamed: "star.png")]
+            
+            for (var i = 0; i < 3; i++)
+            {
+                score[i].position = CGPoint(x: pos.x + CGFloat(i + 3), y: pos.y)
+                score[i].zPosition = 20
+                score[i].xScale = (0.1)
+                score[i].yScale = (0.1)
+                self.addChild(score[i])
+                score[i].hidden = stars < (i + 1)
             }
+            
         })
     }
+    
     
     //Triggers when a collision occurs
     func didBeginContact(contact: SKPhysicsContact)
     {
+        var currentLevel:Int
         //Enforce what bodyA and bodyB are.
         let bodyA = contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask ? contact.bodyA : contact.bodyB
         let bodyB = contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask ? contact.bodyB : contact.bodyA
@@ -186,68 +219,79 @@ class HomeScene: SKScene, SKPhysicsContactDelegate
         //Destroy projectile after junk or edge collisioncollision
         if
             collision == PhysicsCategory.Proj | PhysicsCategory.Junk ||
-            collision == PhysicsCategory.Proj | PhysicsCategory.Edge
+                collision == PhysicsCategory.Proj | PhysicsCategory.Edge
         {
             (bodyB.node as! ProjectileNode).disabled = true;
             if collision == PhysicsCategory.Proj | PhysicsCategory.Junk
-            {
+            { 
                 runAction(SKAction.playSoundFileNamed("hit_1.wav", waitForCompletion: false))
-                if (bodyA.node as! ButtonNode).name == "play"
+                if (bodyA.node as! ButtonNode).name == "1" 
                 {
-                    newGame()
+                    currentLevel = 1
+                    let starsSaved:Int? = NSUserDefaults.standardUserDefaults().integerForKey("level\(currentLevel)_stars")
+                    if(starsSaved != nil && starsSaved != 0)
+                    {
+                        gameManager?.loadGameScene(1, releaseStop: releaseStop, win: true)
+                    }
+                
                 }
-                else if (bodyA.node as! ButtonNode).name == "level"
+                if (bodyA.node as! ButtonNode).name == "2"
                 {
-                    gameManager?.loadLevelSelect(releaseStop)
-                    
+                    currentLevel = 2
+                    let starsSaved:Int? = NSUserDefaults.standardUserDefaults().integerForKey("level\(currentLevel)_stars")
+                    if(starsSaved != nil && starsSaved != 0)
+                    {
+                        gameManager?.loadGameScene(2, releaseStop: releaseStop, win: true)
+                    }
                 }
+                if (bodyA.node as! ButtonNode).name == "3"
+                {
+                    currentLevel = 3
+                    let starsSaved:Int? = NSUserDefaults.standardUserDefaults().integerForKey("level\(currentLevel)_stars")
+                    if(starsSaved != nil && starsSaved != 0)
+                    {
+                        gameManager?.loadGameScene(3, releaseStop: releaseStop, win: true)
+                    }
+                }
+                if (bodyA.node as! ButtonNode).name == "4"
+                {
+                    currentLevel = 4
+                    let starsSaved:Int? = NSUserDefaults.standardUserDefaults().integerForKey("level\(currentLevel)_stars")
+                    if(starsSaved != nil && starsSaved != 0)
+                    {
+                        gameManager?.loadGameScene(4, releaseStop: releaseStop, win: true)
+                    }
+                }
+                if (bodyA.node as! ButtonNode).name == "5"
+                {
+                    currentLevel = 5
+                    let starsSaved:Int? = NSUserDefaults.standardUserDefaults().integerForKey("level\(currentLevel)_stars")
+                    if(starsSaved != nil && starsSaved != 0)
+                    {
+                        gameManager?.loadGameScene(5, releaseStop: releaseStop, win: true)
+                    }
+                }
+                if (bodyA.node as! ButtonNode).name == "6"
+                {
+                    currentLevel = 6
+                    let starsSaved:Int? = NSUserDefaults.standardUserDefaults().integerForKey("level\(currentLevel)_stars")
+                    if(starsSaved != nil && starsSaved != 0)
+                    {
+                        gameManager?.loadGameScene(6, releaseStop: releaseStop, win: true)
+                    }
+                }
+                
             }
-        }
-    }
-    
-    //Swaps the control label to display the current controls
-    func setControlLabel()
-    {
-        enumerateChildNodesWithName("label_controls", usingBlock:
-        { node, _ in
-            if let customNode = node as? SKLabelNode
-            {
-                customNode.text = self.releaseStop ? "Release-Stop" : "Continous"
-                self.circleIndic.hidden = self.releaseStop
-            }
-        })
-        
-        //Save option
-        NSUserDefaults.standardUserDefaults().setBool(self.releaseStop, forKey: "option")
-        NSUserDefaults.standardUserDefaults().synchronize()
-        
-        let wait = SKAction.waitForDuration(4.0)
-        let fadeOut = SKAction.fadeAlphaTo(0, duration: 0.75)
-        let action = SKAction.sequence([wait, fadeOut])
-        
-        //Option description
-        if let customNode = childNodeWithName("des_1") as? SKLabelNode
-        {
-            customNode.text = self.releaseStop ? "Player will stop when" : "Player will NOT stop when"
-            customNode.removeAllActions()
-            customNode.alpha = 1
-            customNode.runAction(action)
-        }
-        if let customNode = childNodeWithName("des_2") as? SKLabelNode
-        {
-            customNode.removeAllActions()
-            customNode.alpha = 1
-            customNode.runAction(action)
         }
     }
     
     //Start a new game
     func newGame()
     {
-        gameManager!.loadGameScene(1, releaseStop: releaseStop, win: true)
+        gameManager!.loadGameScene(4, releaseStop: releaseStop, win: true)
     }
     
-   
+    
     
     //Add a projectile to the scene
     func addProjectile(position: CGPoint)
@@ -258,3 +302,4 @@ class HomeScene: SKScene, SKPhysicsContactDelegate
         runAction(SKAction.playSoundFileNamed("m_fury.wav", waitForCompletion: false))
     }
 }
+

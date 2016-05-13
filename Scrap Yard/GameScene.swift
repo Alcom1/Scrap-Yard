@@ -33,13 +33,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var currentLevel: Int = 0                   //Current level
     var player = PlayerNode()                   //Player
     var circles = [
-        SKShapeNode(circleOfRadius: 25),
-        SKShapeNode(circleOfRadius: 25),
-        SKShapeNode(circleOfRadius: 25)]
+        SKSpriteNode(imageNamed: "star.png"),
+        SKSpriteNode(imageNamed: "star.png"),
+        SKSpriteNode(imageNamed: "star.png")]
     var lastUpdateTime: NSTimeInterval = 0      //
     var dt: CGFloat = 0                         //delta time
     var totalTime = CGFloat(0)                  //Total time that has passed
-    
     var rectTime = SKShapeNode()            //Bar indicating remaining time
     var circleIndic = SKShapeNode()         //Indicator of current touch location
     var victoryBG1 = SKShapeNode()          //Background for victory screen
@@ -127,8 +126,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         {
             circles[i].position = CGPoint(x: 725, y: 150 - i * 55)
             circles[i].zPosition = 20
-            circles[i].fillColor = SKColor.init(red: 1.0, green: 1.0, blue: 0.0, alpha: 1.0)
-            circles[i].strokeColor = SKColor.clearColor()
+            circles[i].xScale = (0.8)
+            circles[i].yScale = (0.8)
             addChild(circles[i])
         }
         

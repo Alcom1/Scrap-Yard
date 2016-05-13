@@ -24,6 +24,8 @@
 		6737CC681CBEFBC400E192CC /* Level_2.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6737CC671CBEFBC400E192CC /* Level_2.sks */; };
 		6737CC6A1CBF0A5600E192CC /* Level_3.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6737CC691CBF0A5600E192CC /* Level_3.sks */; };
 		6737CC6C1CBF1C8A00E192CC /* Level_5.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6737CC6B1CBF1C8A00E192CC /* Level_5.sks */; };
+		673C5C361CE65E32008309CC /* LevelSelectScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673C5C351CE65E32008309CC /* LevelSelectScene.swift */; };
+		673C5C3B1CE67112008309CC /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 673C5C3A1CE67112008309CC /* star.png */; };
 		6748AB651CE11C0200D3B92C /* Level_4.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6748AB641CE11C0200D3B92C /* Level_4.sks */; };
 		6748AB6D1CE1298E00D3B92C /* Level_6.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6748AB6C1CE1298E00D3B92C /* Level_6.sks */; };
 		6790BF8C1CCEB5A9002226A9 /* HomeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6790BF8B1CCEB5A8002226A9 /* HomeScene.swift */; };
@@ -60,6 +62,8 @@
 		6737CC671CBEFBC400E192CC /* Level_2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level_2.sks; sourceTree = "<group>"; };
 		6737CC691CBF0A5600E192CC /* Level_3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level_3.sks; sourceTree = "<group>"; };
 		6737CC6B1CBF1C8A00E192CC /* Level_5.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level_5.sks; sourceTree = "<group>"; };
+		673C5C351CE65E32008309CC /* LevelSelectScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelSelectScene.swift; sourceTree = "<group>"; };
+		673C5C3A1CE67112008309CC /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
 		6748AB641CE11C0200D3B92C /* Level_4.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level_4.sks; sourceTree = "<group>"; };
 		6748AB6C1CE1298E00D3B92C /* Level_6.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level_6.sks; sourceTree = "<group>"; };
 		6790BF8B1CCEB5A8002226A9 /* HomeScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeScene.swift; sourceTree = "<group>"; };
@@ -108,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				67AA1A971CD5943D00DB5AE7 /* renegado.ttf */,
+				673C5C371CE66FAE008309CC /* Images */,
 				67AA1A8A1CD5883700DB5AE7 /* Effects */,
 				6790BF971CCF0AAA002226A9 /* Sounds */,
 				6712F8651CBC5DE700A1158F /* Levels */,
@@ -115,6 +120,7 @@
 				6712F84E1CBC5A0200A1158F /* AppDelegate.swift */,
 				6712F8521CBC5A0200A1158F /* GameScene.swift */,
 				6790BF8B1CCEB5A8002226A9 /* HomeScene.swift */,
+				673C5C351CE65E32008309CC /* LevelSelectScene.swift */,
 				6714269F1CCF191300D3B7EE /* VictScene.swift */,
 				6712F8541CBC5A0200A1158F /* GameViewController.swift */,
 				6790BF911CCF030D002226A9 /* Assets.xcassets */,
@@ -155,6 +161,14 @@
 				6748AB6C1CE1298E00D3B92C /* Level_6.sks */,
 			);
 			name = Levels;
+			sourceTree = "<group>";
+		};
+		673C5C371CE66FAE008309CC /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				673C5C3A1CE67112008309CC /* star.png */,
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 		6790BF971CCF0AAA002226A9 /* Sounds */ = {
@@ -245,6 +259,7 @@
 				6737CC681CBEFBC400E192CC /* Level_2.sks in Resources */,
 				6712F8511CBC5A0200A1158F /* Level_1.sks in Resources */,
 				6712F85D1CBC5A0200A1158F /* LaunchScreen.storyboard in Resources */,
+				673C5C3B1CE67112008309CC /* star.png in Resources */,
 				6790BF9A1CCF0AEE002226A9 /* m_fury.wav in Resources */,
 				67AA1A8E1CD588BE00DB5AE7 /* spark.png in Resources */,
 				6790BF921CCF030D002226A9 /* Assets.xcassets in Resources */,
@@ -262,6 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6712F86D1CBC86A800A1158F /* Utility.swift in Sources */,
+				673C5C361CE65E32008309CC /* LevelSelectScene.swift in Sources */,
 				6712F8691CBC76D400A1158F /* EscapeNode.swift in Sources */,
 				67BBD1951CE2213400214033 /* FollowNode.swift in Sources */,
 				6790BF901CCEBE08002226A9 /* ButtonNode.swift in Sources */,

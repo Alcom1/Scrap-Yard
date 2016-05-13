@@ -55,7 +55,7 @@ class VictScene: SKScene, SKPhysicsContactDelegate
     }
     
     //Touches began
-    override func touchesBegan          (touches: Set<UITouch>, withEvent event: UIEvent?)
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?)
     {
 
     }
