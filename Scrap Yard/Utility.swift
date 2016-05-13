@@ -168,6 +168,11 @@ extension CGVector
         return self / length()
     }
     
+    var angle: CGFloat
+    {
+        return atan2(dy, dx)
+    }
+    
     func toCGPoint() -> CGPoint
     {
         return CGPoint(x: dx, y: dy)

@@ -54,6 +54,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var end = false                     //If level has ended
     var releaseStop = true              //If the player stops moving when touch ends
     var pauseFix = false                //Hax bool to prevent massive jump after unpausing.
+    var flicker = false                 //True if flickering effect should trigger.
     
     //DMTV
     override func didMoveToView(view: SKView)
@@ -119,7 +120,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         victoryText.fontColor = SKColor.init(red: 0.8, green: 0.8, blue: 0.8, alpha: 1.0)
         victoryText.alpha = 0
         addChild(victoryText)
-        
         
         //Yellow circles
         for (var i = 0; i < 3; i++)
@@ -306,6 +306,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     {
                         self.lose()
                     }
+                    else
+                    {
+                        self.flicker = true;
+                    }
                 }
             }
         })
@@ -321,6 +325,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 }
             }
         })
+        
+        //Flicker
+        if(flicker)
+        {
+            flicker = false;
+            enumerateChildNodesWithName( "ring", usingBlock:
+            { node, _ in
+                node.alpha -= 0.3
+                if(node.alpha < 0)
+                {
+                    node.alpha = 0
+                }
+            })
+        }
     }
     
     //Set the visibility of the circles

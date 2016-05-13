@@ -3,8 +3,9 @@ import SpriteKit
 //Actively escaping ball of trash object
 class EscapeNode: SKSpriteNode, CustomNodeEvents, EscapeEvents
 {
-    var active = true;      //If is active and moving
-    var escape = false;     //If has escaped
+    var active = true            //If is active and moving
+    var escape = false           //If has escaped
+    var booster = BoostNode()    //Booster that displays
     
     //DMTS
     func didMoveToScene()
@@ -17,11 +18,17 @@ class EscapeNode: SKSpriteNode, CustomNodeEvents, EscapeEvents
         //Masks
         physicsBody!.categoryBitMask = PhysicsCategory.Junk
         physicsBody!.collisionBitMask = PhysicsCategory.Junk | PhysicsCategory.Proj | PhysicsCategory.Foll
+        
+        //Booster
+        booster.xScale = size.width / 200
+        booster.yScale = size.height / 200
+        addChild(booster)
     }
     
     //Update
     func update(dt: CGFloat)
     {
+        booster.setAngle((position - center).normalized().angle - zRotation)
         if(active)
         {
             //Boost speed
