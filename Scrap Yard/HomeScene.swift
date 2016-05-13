@@ -245,7 +245,7 @@ class HomeScene: SKScene, SKPhysicsContactDelegate
     //Start a new game
     func newGame()
     {
-        gameManager!.loadGameScene(1, releaseStop: releaseStop, win: true)
+        gameManager!.loadGameScene(3, releaseStop: releaseStop, win: true)
     }
     
    

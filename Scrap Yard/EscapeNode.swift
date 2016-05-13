@@ -20,7 +20,6 @@ class EscapeNode: SKSpriteNode, CustomNodeEvents, EscapeEvents
         physicsBody!.collisionBitMask = PhysicsCategory.Junk | PhysicsCategory.Proj | PhysicsCategory.Foll
         
         //Booster
-        print(size.width)
         booster.xScale = size.width / 200
         booster.yScale = size.height / 200
         addChild(booster)

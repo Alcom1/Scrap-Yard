@@ -122,7 +122,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         victoryText.alpha = 0
         addChild(victoryText)
         
-        
         //Yellow circles
         for (var i = 0; i < 3; i++)
         {

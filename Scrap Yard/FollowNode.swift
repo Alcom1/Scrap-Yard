@@ -6,6 +6,7 @@ class FollowNode: SKSpriteNode, CustomNodeEvents, EscapeEvents, FollowEvents
     var active = true;      //If is active and moving
     var escape = false;     //If has escaped
     var target = CGPoint(x: 385, y: 512)    //Target position that the follow node follows.
+    var booster = BoostNode()    //Booster that displays
     
     //DMTS
     func didMoveToScene()
@@ -18,6 +19,11 @@ class FollowNode: SKSpriteNode, CustomNodeEvents, EscapeEvents, FollowEvents
         //Masks
         physicsBody!.categoryBitMask = PhysicsCategory.Foll
         physicsBody!.collisionBitMask = PhysicsCategory.Junk
+        
+        //Booster
+        booster.xScale = size.width / 200
+        booster.yScale = size.height / 200
+        addChild(booster)
     }
     
     //Update
@@ -28,6 +34,7 @@ class FollowNode: SKSpriteNode, CustomNodeEvents, EscapeEvents, FollowEvents
             //Boost speed
             if(escape)
             {
+                booster.setAngle((position - center).normalized().angle - zRotation)
                 physicsBody!.applyImpulse(
                     ((position - center).normalized() * 1800 * physicsBody!.mass * dt).toCGVector())
             }
@@ -35,13 +42,15 @@ class FollowNode: SKSpriteNode, CustomNodeEvents, EscapeEvents, FollowEvents
             //Normal speed
             else
             {
+                booster.setAngle((target - position).normalized().angle - zRotation)
                 physicsBody!.applyImpulse(
                     ((target - position).normalized() * 120 * physicsBody!.mass * dt).toCGVector())
-            }
-            
-            if(physicsBody!.velocity.length() > 60)
-            {
-                physicsBody!.velocity = physicsBody!.velocity.normalized() * 60
+                
+                //Limit velocity of follower enemy
+                if(physicsBody!.velocity.length() > 60)
+                {
+                    physicsBody!.velocity = physicsBody!.velocity.normalized() * 60
+                }
             }
         }
     }
