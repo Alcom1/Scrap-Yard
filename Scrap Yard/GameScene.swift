@@ -36,7 +36,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         SKSpriteNode(imageNamed: "star.png"),
         SKSpriteNode(imageNamed: "star.png"),
         SKSpriteNode(imageNamed: "star.png")]
-    var lastUpdateTime: NSTimeInterval = 0      //
+    var lastUpdateTime: NSTimeInterval = 0
     var dt: CGFloat = 0                         //delta time
     var totalTime = CGFloat(0)                  //Total time that has passed
     var rectTime = SKShapeNode()            //Bar indicating remaining time
@@ -44,6 +44,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var victoryBG1 = SKShapeNode()          //Background for victory screen
     var victoryBG2 = SKShapeNode()          //Lower background for victory screen
     var victoryText = SKLabelNode()
+    var resetButtonBase = SKShapeNode()     //Base of the reset button
+    var resetButtonCent = SKShapeNode()     //Center of the reset button
+    var resetText = SKLabelNode()           //Reset button label
     
     var fireRate = CGFloat(0.2)         //Fire rate
     var fireRateCounter = CGFloat(0.0)  //Fire rate counter
@@ -55,6 +58,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var releaseStop = true              //If the player stops moving when touch ends
     var pauseFix = false                //Hax bool to prevent massive jump after unpausing.
     var flicker = false                 //True if flickering effect should trigger.
+    var resetPress = false              //True if the reset button has been pressed, unrelated to release
     
     //DMTV
     override func didMoveToView(view: SKView)
@@ -88,8 +92,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         //Circle indicator
         circleIndic = SKShapeNode(circleOfRadius: 25.0)
         circleIndic.position = CGPoint(x: 384, y: 512)
-        circleIndic.fillColor = SKColor.init(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
-        circleIndic.strokeColor = SKColor.clearColor()
+        circleIndic.zPosition = 50;
+        circleIndic.fillColor = SKColor.clearColor()
+        circleIndic.lineWidth = 5
+        circleIndic.strokeColor = SKColor.init(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
         circleIndic.hidden = true
         addChild(circleIndic)
         
@@ -111,7 +117,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         victoryBG2.strokeColor = SKColor.clearColor()
         addChild(victoryBG2)
         
-        //Top kek
+        //Text upon win
         victoryText = SKLabelNode(text: "Victory!")
         victoryText.position = CGPoint(x: 384, y: 382)
         victoryText.zPosition = 17
@@ -124,12 +130,32 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         //Yellow circles
         for (var i = 0; i < 3; i++)
         {
-            circles[i].position = CGPoint(x: 725, y: 150 - i * 55)
+            circles[i].position = CGPoint(x: 725, y: 155 - i * 55)
             circles[i].zPosition = 20
-            circles[i].xScale = (0.8)
-            circles[i].yScale = (0.8)
+            circles[i].xScale = (0.6)
+            circles[i].yScale = (0.6)
             addChild(circles[i])
         }
+        
+        //Reset button
+        resetButtonBase = SKShapeNode(rectOfSize: CGSize(width: 80, height: 80), cornerRadius: 40)
+        resetButtonBase.position = CGPoint(x: 60, y: 90)
+        resetButtonBase.fillColor = SKColor.init(red: 0.60, green: 0.15, blue: 0.15, alpha: 1.0)
+        resetButtonBase.strokeColor = SKColor.clearColor()
+        addChild(resetButtonBase)
+        
+        resetButtonCent = SKShapeNode(rectOfSize: CGSize(width: 65, height: 65), cornerRadius: 40)
+        resetButtonCent.position = CGPoint(x: 60, y: 90)
+        resetButtonCent.fillColor = SKColor.init(red: 0.70, green: 0.2, blue: 0.2, alpha: 1.0)
+        resetButtonCent.strokeColor = SKColor.clearColor()
+        addChild(resetButtonCent)
+        
+        resetText = SKLabelNode(text: "RESET")
+        resetText.position = CGPoint(x: 62, y: 28)
+        resetText.fontName = "Renegado"
+        resetText.fontSize = 24
+        resetText.fontColor = SKColor.init(red: 0.8, green: 0.8, blue: 0.8, alpha: 1.0)
+        addChild(resetText)
         
         //Backround ring particle effect
         for(var i = CGFloat(-1); i < 2; i += 2)
@@ -183,6 +209,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             circleIndic.position = location
             circleIndic.hidden = false      //Reveal circle while touching
             player.setPosAndRot(location)
+            
+            if((location - resetButtonBase.position).length() < 70)
+            {
+                resetPress = true
+            }
         }
     }
     
@@ -213,6 +244,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             //Hide circle and stop player
             circleIndic.hidden = true
             player.targetAngle = player.currentAngle
+        }
+        
+        //If touch was pressed and released on the reset button, reset the current level
+        for touch in touches
+        {
+            let location = touch.locationInNode(self)
+            
+            print((location - resetButtonBase.position).length())
+            if(resetPress && (location - resetButtonBase.position).length() < 70)
+            {
+                newGame(false)
+            }
         }
     }
    
@@ -263,7 +306,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             }
             else
             {
-                if(circles[0].xScale < 1.9)
+                if(circles[0].xScale < 1.4)
                 {
                     for (var i = 0; i < 3; i++)
                     {
