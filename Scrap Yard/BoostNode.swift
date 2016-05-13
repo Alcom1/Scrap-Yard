@@ -1,19 +1,16 @@
 import SpriteKit
 
-//Passive junk ball object
-class BoostNode: SKSpriteNode, CustomNodeEvents
+//Booster for enemies.
+class BoostNode: SKSpriteNode
 {
     //Init
     init()
     {
         super.init(
-            texture: SKTexture(imageNamed: "player"),
+            texture: SKTexture(imageNamed: "triangle"),
             color: UIColor(),
-            size: CGSize(width: 100, height: 130))
-        
-        self.position = center + CGPoint(x: 0, y: 340)
-        self.zPosition = 10
-        self.zRotation = (self.position - center).angle
+            size: CGSize(width: 100, height: 50))
+        self.zPosition = 4
     }
 
     required init?(coder aDecoder: NSCoder)
@@ -21,22 +18,8 @@ class BoostNode: SKSpriteNode, CustomNodeEvents
         fatalError("init(coder:) has not been implemented")
     }
     
-    //DMTS
-    func didMoveToScene()
+    func setAngle(angle: CGFloat)
     {
-        //circle boundary, no gravity, mass scales with size
-        physicsBody = SKPhysicsBody(circleOfRadius: size.width * 0.427)
-        physicsBody!.affectedByGravity = false;
-        physicsBody!.mass = π * size.width * size.width / 160000
-        
-        //Masks
-        physicsBody!.categoryBitMask = PhysicsCategory.Junk
-        physicsBody!.collisionBitMask = PhysicsCategory.Junk | PhysicsCategory.Edge | PhysicsCategory.Proj | PhysicsCategory.Foll
-    }
-    
-    //Update
-    func update(dt: CGFloat)
-    {
-        
+        self.zRotation = angle;
     }
 }
