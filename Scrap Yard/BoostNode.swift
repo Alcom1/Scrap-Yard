@@ -7,7 +7,7 @@ class BoostNode: SKSpriteNode
     init()
     {
         super.init(
-            texture: SKTexture(imageNamed: "triangle"),
+            texture: SKTexture(imageNamed: "engine"),
             color: UIColor(),
             size: CGSize(width: 100, height: 50))
         self.zPosition = 4
