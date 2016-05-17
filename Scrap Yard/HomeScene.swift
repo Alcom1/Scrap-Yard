@@ -28,6 +28,8 @@ class HomeScene: SKScene, SKPhysicsContactDelegate
         
         //Add player
         addChild(player)
+        player.currentAngle += π / 2 + π / 720  //Player start sideways fix
+        player.targetAngle += π / 2
         
         //Circle indicator
         circleIndic = SKShapeNode(circleOfRadius: 25.0)
