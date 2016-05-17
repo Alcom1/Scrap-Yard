@@ -63,51 +63,50 @@ class LevelSelectScene: SKScene, SKPhysicsContactDelegate
         circleIndic.hidden = true
         addChild(circleIndic)
         var num = 0
-        let off = -100
         for (var i = 0; i < 18; i++)
         {
             switch(i){
-            case 3...5: // level 1
+            case 0...2: // level 1
+                score[i].position = CGPoint(x: 354 + (i * 35), y: 680)
+                score[i].zPosition = 20
+                score[i].xScale = (0.5)
+                score[i].yScale = (0.5)
+                addChild(score[i])
+            case 3...5: // level 2
                 if(i == 3){num = 0}
-                score[i].position = CGPoint(x: 354 + off + (i * 35), y: 680)
+                score[i].position = CGPoint(x: 590 + (num * 35) , y: 510)
                 score[i].zPosition = 20
                 score[i].xScale = (0.5)
                 score[i].yScale = (0.5)
                 addChild(score[i])
-            case 6...8: // level 2
+                num += 1
+            case 6...8: // level 3
                 if(i == 6){num = 0}
-                score[i].position = CGPoint(x: 690 + off + (num * 35) , y: 510)
+                score[i].position = CGPoint(x: 590 + (num * 35), y: 288)
                 score[i].zPosition = 20
                 score[i].xScale = (0.5)
                 score[i].yScale = (0.5)
                 addChild(score[i])
                 num += 1
-            case 9...11: // level 3
+            case 9...11: // level 4
                 if(i == 9){num = 0}
-                score[i].position = CGPoint(x: 690 + off + (num * 35), y: 288)
+                score[i].position = CGPoint(x: 354 + (num * 35), y: 182)
                 score[i].zPosition = 20
                 score[i].xScale = (0.5)
                 score[i].yScale = (0.5)
                 addChild(score[i])
                 num += 1
-            case 12...14: // level 4
+            case 12...14: // level 5
                 if(i == 12){num = 0}
-                score[i].position = CGPoint(x: 454 + off + (num * 35), y: 182)
+                score[i].position = CGPoint(x: 124 + (num * 35), y: 288)
                 score[i].zPosition = 20
                 score[i].xScale = (0.5)
                 score[i].yScale = (0.5)
                 addChild(score[i])
                 num += 1
-            case 15...17: // level 5
+            case 15...17: // level 6
                 if(i == 15){num = 0}
-                score[i].position = CGPoint(x: 224 + off + (num * 35), y: 288)
-                score[i].zPosition = 20
-                score[i].xScale = (0.5)
-                score[i].yScale = (0.5)
-                addChild(score[i])
-                num += 1
-            case 0...2: // level 6
-                score[i].position = CGPoint(x: 224 + off + (num * 35), y: 510)
+                score[i].position = CGPoint(x: 124 + (num * 35), y: 510)
                 score[i].zPosition = 20
                 score[i].xScale = (0.5)
                 score[i].yScale = (0.5)
@@ -260,7 +259,7 @@ class LevelSelectScene: SKScene, SKPhysicsContactDelegate
         node, _ in
         if let customNode = node as? ButtonNode
         {
-            let stars:Int? = NSUserDefaults.standardUserDefaults().integerForKey("level\(self.starCount / 3)_stars")
+            let stars:Int? = NSUserDefaults.standardUserDefaults().integerForKey("level\(self.starCount / 3 + 1)_stars")
             
             for(var i = 0; i < 3; i++)
             {
@@ -269,7 +268,6 @@ class LevelSelectScene: SKScene, SKPhysicsContactDelegate
             
             for(var i = 0; i < 3; i++)
             {
-                print(stars!)
                 self.score[i + self.starCount].hidden = i >= stars!
             }
             
